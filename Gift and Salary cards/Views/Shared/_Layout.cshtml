@@ -3,41 +3,55 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Gift_and_Salary_cards</title>
+    <title>virtcards - @ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    @await RenderSectionAsync("Css", required: false)
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar nav mb-3 fixed-top navbar-expand-md navbar-toggleable-md navbar-light bg-white border-bottom box-shadow">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Gift_and_Salary_cards</a>
+                <a asp-controller="Home" asp-action="Index" class="navbar-brand">virtcards</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="navbar-collapse collapse d-md-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link btn text-dark active" asp-controller="Home" asp-action="Index">Главная</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link btn text-dark" href="#payment">Подарочные карты</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn text-dark" href="#payment">Зарплатные карты</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn text-dark" href="#chat">Контакты</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn text-dark" href="#channel">Оферта</a>
                         </li>
                     </ul>
                 </div>
+                <a class="phone-number d-none d-lg-block" href="tel:+79629007965">+7-962-900-79-65</a>
+            </div>
+            <div class="container text-center d-block d-md-none">
+                <a class="phone-number" href="tel:+79629007965">+7-962-900-79-65</a>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="container-fluid p-0 main-content">
+        <main role="main">
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - Gift_and_Salary_cards - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="container text-center">
+            &copy; 2021 - ООО "Company" - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

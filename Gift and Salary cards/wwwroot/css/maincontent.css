@@ -1,0 +1,203 @@
+﻿.main-content {
+    margin-top: 55px;
+}
+
+h3 {
+    font-size: 36px;
+}
+
+.presentable-block {
+    background-size: cover;
+    height: 760px;
+    background-image: url(../img/main-present.jpg);
+    background-position: right center;
+}
+
+.presentable-block__header {
+    margin-top: 100px;
+    margin-bottom: 0;
+    text-shadow: none;
+    color: #000a4b;
+    font-family: "Roboto Condensed",Verdana,Tahoma,sans-serif;
+    line-height: 1.2;
+}
+
+.presentable-block__button div {
+    margin-top: 50px;
+}
+
+.presentable-block__button .btn {
+    width: 300px;
+    font-size: 20px;
+    border-radius: 7px;
+    height: 33px;
+    line-height: 33px;
+    background-color: #f7951e;
+    box-shadow: 0 4px 0 #b16307;
+    box-sizing: content-box;
+    color: white;
+}
+
+/* О сервисе */
+
+.aboutservice-block {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    background-image: url(../img/fon-about-block.jpg);
+    background-position: right center;
+    color: #000a4b;
+}
+
+
+.about-service p {
+    font-size: 20px;
+}
+
+.about-service__address {
+    text-decoration: none
+}
+
+.about-service__img-block img {
+    width: auto;
+    height: auto;
+}
+
+/* Как работает сервис */
+
+.howjob-block {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    background-image: url(../img/howjob-fon.jpg);
+    background-position: right center;
+    color: #000a4b;
+}
+
+.item-work p {
+    font-size: 16px;
+}
+
+.item-work__number {
+    width: 110px;
+    height: 110px;
+    font-size: 50px;
+    padding: 15px;
+    text-align: center;
+    box-sizing: border-box;
+    position: relative;
+    border-radius: 50%;
+    font-size: 29px;
+    text-shadow: 0 1px 0 #dbed14;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-weight: 900;
+    background-color: #b9cc10;
+    box-shadow: 0 4px 5px rgb(0 0 0 / 12%);
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0%, #d9e317), color-stop(11.11111%, #b9cc10));
+    background-image: -o-linear-gradient(#d9e317, #b9cc10);
+    background-image: -moz-linear-gradient(#d9e317, #b9cc10);
+    background-image: -webkit-linear-gradient(#d9e317, #b9cc10);
+    background-image: -ms-linear-gradient(#d9e317, #b9cc10);
+    background-image: linear-gradient( #d9e317, #b9cc10);
+    -pie-background: linear-gradient( #d9e317, #b9cc10);
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 64px;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 64px;
+    -ms-flex: 0 0 64px;
+    flex: 0 0 64px;
+    color: #666666;
+}
+
+/* Где можно использовать блок */
+
+.howuse-block__item-image img {
+    width: 350px;
+    height: 350px;
+}
+
+.howuse-block {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    background-image: url(../img/howuse-fon.jpg);
+    background-position: right center;
+    color: #000a4b;
+}
+
+    .howuse-block p {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+/* Наши преимущества */
+
+.benefits-block {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.benefits-block__img-block img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.benefits-block__item__img {
+    width: 100px;
+    height: 100px;
+}
+
+/* медиа */
+
+@media (max-width: 991px) {
+
+    .benefits-block h5 {
+        font-size: 24px;
+    }
+
+    .benefits-block__item-text {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .benefits-block__item-text {
+        width: 330px;
+    }
+
+
+
+    .item-work__title {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .item-work__number {
+        color: #000a4b;
+        width: 64px;
+        height: 64px;
+    }
+
+
+    .about-service p {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .presentable-block__button div {
+        margin-top: 35px;
+    }
+
+    .presentable-block__header {
+        color: #000e6b;
+        text-align: center;
+    }
+
+
+    .presentable-block {
+        background-position: 83%;
+        height: 700px;
+    }
+
+    .main-content {
+        margin-top: 30px;
+    }
+}
