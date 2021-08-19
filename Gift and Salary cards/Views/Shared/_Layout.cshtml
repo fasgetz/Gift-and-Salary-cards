@@ -23,14 +23,20 @@
                         <li class="nav-item">
                             <a class="nav-link btn text-dark active" asp-controller="Home" asp-action="Index">Главная</a>
                         </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @if (User.IsInRole("Корпоратив"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link btn text-dark" href="#payment">Подарочные карты</a>
+                                </li>
+                            }
+                        }
                         <li class="nav-item">
-                            <a class="nav-link btn text-dark" href="#payment">Подарочные карты</a>
+                            <a class="nav-link btn text-dark" asp-controller="Card" asp-action="SalaryCard">Зарплатные карты</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn text-dark" href="#payment">Зарплатные карты</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn text-dark" href="#chat">Контакты</a>
+                            <a class="nav-link btn text-dark" asp-controller="Contacts" asp-action="Index">Контакты</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link btn text-dark" href="#channel">Оферта</a>
@@ -99,13 +105,14 @@
 
     <footer class="border-top footer text-muted">
         <div class="container text-center">
-            &copy; 2021 - ООО "Company" - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2013-2021 - ООО "Абрис М" - <a asp-area="" asp-controller="Contacts" asp-action="Index">контакты</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/scripts/chunk-vendors.js" asp-append-version="true"></script>
+    <script src="~/js/activemenu.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -20,7 +20,13 @@ namespace Gift_and_Salary_cards.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            // Если пользователь "свой", то предоставить ему доступ к подарочным картам
+            //if (User.Identity.IsAuthenticated && User.IsInRole("Корпоратив"))
+            //{
+            //    return View();
+            //}
+
+            return View("IndexAll");
         }
 
         public IActionResult Privacy()

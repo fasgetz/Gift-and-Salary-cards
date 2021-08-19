@@ -99,6 +99,10 @@ body {
 }
 
 .active {
-    color: #black !important;
+    background: rgba(0,0,0,.1);
     border-bottom: 1px solid blue;
+}
+
+.nav-link:hover {
+    background: rgba(0,0,0,.2);
 }

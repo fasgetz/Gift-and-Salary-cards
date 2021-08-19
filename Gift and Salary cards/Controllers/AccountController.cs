@@ -97,7 +97,7 @@ namespace Gift_and_Salary_cards.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = model.Email, UserName = model.Email };
+                User user = new User { Email = model.Email, UserName = model.Email, PhoneNumber = model.phone };
                 // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

@@ -143,9 +143,26 @@ h3 {
     height: 100px;
 }
 
-/* медиа */
+/* Комиссии */
 
+.comission-img img {
+    width: auto;
+    height: 100%
+}
+
+/* Блок обратной связи */
+.feedback-block {
+    background: #e9e4e5;
+    /*    background-position: right center;*/
+}
+
+/* медиа */
 @media (max-width: 991px) {
+    .comission-img img {
+        object-fit: cover !important;
+        height: 100%;
+        width: 100%;
+    }
 
     .benefits-block h5 {
         font-size: 24px;
@@ -199,3 +216,5 @@ h3 {
         margin-top: 30px;
     }
 }
+
+
