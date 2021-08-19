@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Gift_and_Salary_cards.Models.Identity.User>
+
+<div class="container">
+    <h2>Список пользователей</h2>
+    <table class="table mt-3">
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>
+                    <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-userid="@user.Id">Права доступа</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

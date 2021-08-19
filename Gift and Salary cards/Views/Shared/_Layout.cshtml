@@ -48,7 +48,7 @@
                             <a class="dropdown-item basket-menu" asp-controller="Basket" asp-action="Payment">Корзина <i class="fa fa-shopping-basket"></i></a>
                             @if (User.IsInRole("Администратор"))
                             {
-                                <a asp-controller="Admin" asp-action="Index" class="dropdown-item">Панель Администратора</a>
+                                <a asp-controller="Roles" asp-action="Index" class="dropdown-item">Роли пользователей</a>
                             }
                             <div class="dropdown-divider"></div>
                             <form method="post" asp-controller="Account" asp-action="Logout">
@@ -75,7 +75,7 @@
                             <a class="dropdown-item basket-menu" asp-controller="Basket" asp-action="Payment">Корзина <i class="fa fa-shopping-basket"></i></a>
                             @if (User.IsInRole("Администратор"))
                             {
-                                <a asp-controller="Admin" asp-action="Index" class="dropdown-item">Панель Администратора</a>
+                                <a asp-controller="Roles" asp-action="Index" class="dropdown-item">Роли пользователей</a>
                             }
                             <div class="dropdown-divider"></div>
                             <form method="post" asp-controller="Account" asp-action="Logout">
