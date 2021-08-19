@@ -1,19 +1,251 @@
-﻿@model Gift_and_Salary_cards.Models.ViewModels.LoginViewModel
+﻿@model Gift_and_Salary_cards.Models.ViewModels.PaymentFormViewModel
 
 @{
     ViewData["Title"] = "зарплатные карты";
 }
 
 @section Css {
-    @*<link href="~/css/reg.css" rel="stylesheet" asp-append-version="true" />*@
+    <link href="~/css/salarycardcontent.css" rel="stylesheet" asp-append-version="true" />
 }
 
-<div class="container">
-    <div class="row">
-        <h3>Пополнение зарплатной карты</h3>
+<div class="container-fluid">
+    <div class="row comission-block mt-3">
+        <div class="container">
+            <h3 class="col-12 text-center">Комиссионные сборы</h3>
+            <div class="container">
+                <div class="row mt-3 text-center">
+                    <h5>Тариф на пополнение банковских карт и счетов сервиса <a class="about-service__address" asp-controller="Home" asp-action="Index">virtcards</a> без скрытых комиссий и составляет всего <b>12%</b> от суммы платежа</h5>
+                    <div class="comission-img">
+                        <img src="~/img/procent.png" alt="Alternate Text" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row howjob-block">
+        <div class="container">
+            <h3 class="text-center">Алгоритм зачисления средств сотруднику</h3>
+            <div class="about-service mt-5 row">
+                <div class="col-lg col-12">
+                    <div class="item-work">
+                        <div class="row">
+                            <div class="col-4 col-lg-12 d-flex align-items-center justify-content-center">
+                                <div>
+                                    <div style="background: lawngreen !important" class="item-work__number d-flex align-items-center justify-content-center">
+                                        <span>1</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-8 col-lg-12 text-center">
+                                <h5 class="mt-0 mt-lg-3 item-work__title">Регистрация в системе</h5>
+                                <p class="p-1">Вы успешно прошли регистрацию на сервисе virtcards и теперь пора перейти к следующему шагу!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg col-12 mt-3 mt-lg-0">
+                    <div class="item-work">
+                        <div class="row">
+                            <div class="col-4 col-lg-12 d-flex align-items-center justify-content-center">
+                                <div>
+                                    <div class="item-work__number d-flex align-items-center justify-content-center">
+                                        <span>2</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-8 col-lg-12 text-center">
+                                <h5 class="mt-0 mt-lg-3 item-work__title">Оформление</h5>
+                                <p class="p-1">
+                                    Оформите заявку на выплату сотруднику путем заполнения персональных данных сотрудника и банковской карты на форме пополнения
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg col-12 mt-3 mt-lg-0">
+                    <div class="item-work">
+                        <div class="row">
+                            <div class="col-4 col-lg-12 d-flex align-items-center justify-content-center">
+                                <div>
+                                    <div class="item-work__number d-flex align-items-center justify-content-center">
+                                        <span>3</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-8 col-lg-12 text-center">
+                                <h5 class="mt-0 mt-lg-3 item-work__title">Оплата</h5>
+                                <p class="p-1">Оплачивайте банковскими картами и удобными для Вас способами через систему электронных платежей</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg col-12 mt-3 mt-lg-0">
+                    <div class="item-work">
+                        <div class="row">
+                            <div class="col-4 col-lg-12 d-flex align-items-center justify-content-center">
+                                <div>
+                                    <div class="item-work__number d-flex align-items-center justify-content-center">
+                                        <span>4</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-8 col-lg-12 text-center">
+                                <h5 class="mt-0 mt-lg-3 item-work__title">Обработка платежа</h5>
+                                <p class="p-1">
+                                    После оплаты, платеж находится в статусе «в обработке». Статусы платежей и данные для формирования отчетности доступны в личном кабинете
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg col-12 mt-3 mt-lg-0">
+                    <div class="item-work">
+                        <div class="row">
+                            <div class="col-4 col-lg-12 d-flex align-items-center justify-content-center">
+                                <div>
+                                    <div class="item-work__number d-flex align-items-center justify-content-center">
+                                        <span>5</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-8 col-lg-12 text-center">
+                                <h5 class="mt-0 mt-lg-3 item-work__title">Зачисление платежа</h5>
+                                <p class="p-1">Получение платежа на банковскую карту сотрудника приходит в течении 1-3 рабочих дней (могут быть задержки)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row formpayment d-flex justify-content-center">
+
+        <div class="col-12 col-lg-6 mt-5">
+            <ul class="nav nav-tabs">
+                <!-- Первая вкладка (активная) -->
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#description">Банковские карты</a>
+                </li>
+                <!-- Вторая вкладка -->
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#characteristics">Банковские счета</a>
+                </li>
+            </ul>
+            <!-- Блоки с контентом -->
+            <div class="tab-content mb-5">
+                <!-- Первый блок (он отображается по умолчанию, т.к. имеет классы show и active) -->
+                <div class="tab-pane fade show active" id="description">
+                    <div class="mt-3">
+                        <h3>Форма пополнения банковской карты</h3>
+                        <form class="mt-3" id="app" method="post" asp-controller="Card" asp-action="PaymentBank">
+                            <div asp-validation-summary="ModelOnly"></div>
+                            <div class="form-group">
+                                <label asp-for="Name"></label><br />
+                                <input class="form-control" asp-for="Name" />
+                                <span asp-validation-for="Name"></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label asp-for="Family"></label><br />
+                                <input class="form-control" asp-for="Family" />
+                                <span asp-validation-for="Family"></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label asp-for="Surname"></label><br />
+                                <input class="form-control" asp-for="Surname" />
+                                <span asp-validation-for="Surname"></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label asp-for="docNumber"></label><br />
+                                <input class="form-control" asp-for="docNumber" />
+                                <span asp-validation-for="docNumber"></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label asp-for="docIssueDate"></label><br />
+                                <input class="form-control" asp-for="docIssueDate" />
+                                <span asp-validation-for="docIssueDate"></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label asp-for="PhoneNumber"></label><br />
+                                <input class="form-control" asp-for="PhoneNumber" />
+                                <span asp-validation-for="PhoneNumber"></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label asp-for="dateBirth"></label><br />
+                                <input class="form-control" asp-for="dateBirth" />
+                                <span asp-validation-for="dateBirth"></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label asp-for="country"></label><br />
+                                <input class="form-control" asp-for="country" />
+                                <span asp-validation-for="country"></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label asp-for="city"></label><br />
+                                <input class="form-control" asp-for="city" />
+                                <span asp-validation-for="city"></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label asp-for="address"></label><br />
+                                <input class="form-control" asp-for="address" />
+                                <span asp-validation-for="address"></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label asp-for="postcode"></label><br />
+                                <input class="form-control" asp-for="postcode" />
+                                <span asp-validation-for="postcode"></span>
+                            </div>
+                            <div class="mt-3">
+                                <h5>Реквизиты банковской карты сотрудника</h5>
+                                <div class="form-group mt-3">
+                                    <label asp-for="skr_destinationCardSynonim"></label><br />
+                                    <input class="form-control" asp-for="skr_destinationCardSynonim" />
+                                    <span asp-validation-for="skr_destinationCardSynonim"></span>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label asp-for="moneyPay"></label><br />
+                                    <input v-model.number="sumPay" class="form-control" asp-for="moneyPay" />
+                                    <span asp-validation-for="moneyPay"></span>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label asp-for="moneyPayProcent"></label><br />
+                                    <input disabled v-model="GetProcent" class="form-control" asp-for="moneyPayProcent" />
+                                    <span asp-validation-for="moneyPayProcent"></span>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label asp-for="textPayment"></label><br />
+                                    <textarea  placeholder="Перевод денег на банковскую карту" rows="3" class="form-control" asp-for="textPayment"></textarea>
+                                    <span asp-validation-for="textPayment"></span>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <div class="form-check mt-1 mb-1">
+                                    <input v-model="isEnabledOfferta" type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Я согласен с политикой <a class="about-service__address" asp-controller="Oferta" asp-action="Oferta">оферты virtcards</a></label>
+                                </div>
+                                <div class="form-check mt-1 mb-1">
+                                    <input v-model="isEnabledOffertaUkassa" type="checkbox" class="form-check-input" id="exampleCheck2">
+                                    <label class="form-check-label" for="exampleCheck2">Я согласен с политикой <a class="about-service__address" href="https://yoomoney.ru/pay/page?id=526623" target="_blank">оферты ЮKassa</a></label>
+                                </div>
+                            </div>
+                            <div class="mt-5 text-center" v-bind:class="[isEnabledOfferta == true && isEnabledOffertaUkassa == true ? '' : 'disabled-block']">
+                                <input class="btn btn-success" type="submit" value="Оплатить" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- Второй блок -->
+                <div class="tab-pane fade" id="characteristics">
+                    <p>Вторая вкладка</p>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
 
 
 
-
+@section Scripts {
+    <script src="~/scripts/runtime~Payment.js" asp-append-version="true"></script>
+    <script src="~/scripts/Payment.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,103 @@
+﻿
+
+h3 {
+    font-size: 36px;
+}
+
+/* Форма пополнения */
+
+.field-validation-error {
+    color: red
+}
+
+.formpayment {
+    background: #e9e4e5;
+}
+
+
+/* Как работает сервис */
+.howjob-block {
+    background-image: url(../img/fon-about-block.jpg);
+    background-position: right center;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    background-position: right center;
+    color: #000a4b;
+}
+
+.item-work p {
+    font-size: 16px;
+}
+
+.item-work__number {
+    width: 110px;
+    height: 110px;
+    font-size: 50px;
+    padding: 15px;
+    text-align: center;
+    box-sizing: border-box;
+    position: relative;
+    border-radius: 50%;
+    font-size: 29px;
+    text-shadow: 0 1px 0 #dbed14;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-weight: 900;
+    background-color: #b9cc10;
+    box-shadow: 0 4px 5px rgb(0 0 0 / 12%);
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0%, #d9e317), color-stop(11.11111%, #b9cc10));
+    background-image: -o-linear-gradient(#d9e317, #b9cc10);
+    background-image: -moz-linear-gradient(#d9e317, #b9cc10);
+    background-image: -webkit-linear-gradient(#d9e317, #b9cc10);
+    background-image: -ms-linear-gradient(#d9e317, #b9cc10);
+    background-image: linear-gradient( #d9e317, #b9cc10);
+    -pie-background: linear-gradient( #d9e317, #b9cc10);
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 64px;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 64px;
+    -ms-flex: 0 0 64px;
+    flex: 0 0 64px;
+    color: #666666;
+}
+
+
+
+/* Комиссии */
+
+.comission-img img {
+    width: auto;
+    height: 100%
+}
+
+/* Блок обратной связи */
+.feedback-block {
+    background: #e9e4e5;
+    /*    background-position: right center;*/
+}
+
+.about-service__address {
+    text-decoration: none
+}
+
+
+/* медиа */
+@media (max-width: 991px) {
+    .comission-img img {
+        object-fit: cover !important;
+        height: 100%;
+        width: 100%;
+    }
+
+
+}
+
+@media (max-width: 768px) {
+
+}
+
+
+.active {
+    background: none;
+    border-bottom: none
+}
+
