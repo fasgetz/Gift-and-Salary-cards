@@ -6,6 +6,11 @@ a.navbar-brand {
     word-break: break-all;
 }
 
+.disabled-block {
+    pointer-events: none;
+    opacity: 0.8;
+}   
+
 /* Provide sufficient contrast against white background */
 a {
     color: #0366d6;
@@ -33,6 +38,17 @@ html {
     html {
         font-size: 16px;
     }
+}
+
+@media (max-width: 768px) {
+
+    .main-content {
+        margin-top: 7rem !important;
+    }
+}
+
+.main-content {
+    margin-top: 5rem;
 }
 
 .border-top {
@@ -78,10 +94,8 @@ body {
 /* header-content */
 
 .phone-number {
-    font-size: 28px;
-    color: #039be5;
-    font-family: "Roboto Condensed",Verdana,Tahoma,sans-serif;
-    text-decoration: none;
+    color: #0d6efd;
+    border-color: #0d6efd;
 }
 
 .active {

@@ -1,6 +1,9 @@
+using Gift_and_Salary_cards.Models.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,6 +26,17 @@ namespace Gift_and_Salary_cards
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ContextUsers>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("UsersIdentityConnection")));
+
+            services.AddIdentity<User, IdentityRole>(opts =>
+                {
+                    opts.Password.RequireNonAlphanumeric = false;
+                    opts.User.RequireUniqueEmail = true;    // уникальный email
+                    opts.User.AllowedUserNameCharacters = ".@abcdefghijklmnopqrstuvwxyz"; // допустимые символы
+                })
+                .AddEntityFrameworkStores<ContextUsers>();
+
             services.AddControllersWithViews();
         }
 
@@ -44,6 +58,7 @@ namespace Gift_and_Salary_cards
 
             app.UseRouting();
 
+            app.UseAuthentication();    // подключение аутентификации
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
