@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +27,19 @@ namespace Gift_and_Salary_cards
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // If using Kestrel:
+            services.Configure<KestrelServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
+            });
+
+            // If using IIS:
+            services.Configure<IISServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
+            });
+
+
             services.AddDbContext<ContextUsers>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("UsersIdentityConnection")));
 
@@ -49,9 +63,10 @@ namespace Gift_and_Salary_cards
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                app.UseDeveloperExceptionPage();
+                //app.UseExceptionHandler("/Home/Error");
+                //// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                //app.UseHsts();
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();

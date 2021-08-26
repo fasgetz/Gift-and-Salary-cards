@@ -17,36 +17,38 @@ namespace Gift_and_Salary_cards.Models.ViewModels
         [Display(Name = "Пароль")]
         public string Password { get; set; }
 
-
         [Required]
+        [Compare("Password", ErrorMessage = "Пароли не совпадают")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Подтвердить пароль")]
+        public string PasswordConfirm { get; set; }
+
+
+        //[Required]
         [Display(Name = "Имя представителя")]
         public string NameRepresentative { get; set; }
 
-        [Required]
+        //[Required]
         [Display(Name = "Фамилия представителя")]
         public string FamilyRepresentative { get; set; }
 
         [Display(Name = "Отчество представителя")]
         public string SurnameRepresentative { get; set; }
 
-        [Required]
+        //[Required]
         [Display(Name = "Дата рождения представителя")]
         public DateTime dateBirthRepresentative { get; set; }
 
-        [Required]
+        //[Required]
         [Display(Name = "Наименование организации")]
         public string nameOrganization { get; set; }
 
-        [Required]
+        //[Required]
         [MaxLength(length: 11, ErrorMessage = "Введите номер телефона!")]
         [MinLength(length: 11, ErrorMessage = "Введите номер телефона!")]
         [Display(Name = "Номер телефона")]
         public string phone { get; set; }
 
-        [Required]
-        [Compare("Password", ErrorMessage = "Пароли не совпадают")]
-        [DataType(DataType.Password)]
-        [Display(Name = "Подтвердить пароль")]
-        public string PasswordConfirm { get; set; }
+
     }
 }
