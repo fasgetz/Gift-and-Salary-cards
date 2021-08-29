@@ -1,11 +1,22 @@
 ﻿import { createApp } from 'vue';
+//import formcomponent from './formcomponent.vue'
+
+//const vueApp = createApp({
+//    components: {
+//        formcomponent
+//    }
+//}).mount('#app');
+
 
 const vueApp = createApp({
     data() {
         return {
             isEnabledOfferta: false,
             isEnabledOffertaUkassa: false,
-            sumPay: 1000,
+
+            cardChecked: false,
+
+            sumPay: 5000,
             procent: 0 // Процент комиссии нашего сервиса
         }
     },
@@ -17,6 +28,13 @@ const vueApp = createApp({
         GetProcent: function () {
             // `this` указывает на экземпляр vm
             return this.sumPay + (this.sumPay / 100 * this.procent)
+        }
+    },
+    methods: {
+        checkCard: function () {
+            event.preventDefault();
+
+            this.cardChecked = !this.cardChecked
         }
     }
 }).mount('#app');

@@ -1,11 +1,15 @@
-﻿using Gift_and_Salary_cards.Models.ViewModels;
+﻿using Gift_and_Salary_cards.Models.Identity;
+using Gift_and_Salary_cards.Models.ViewModels;
+using Gift_and_Salary_cards.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Yandex.Checkout.V3;
 
@@ -15,10 +19,54 @@ namespace Gift_and_Salary_cards.Controllers
 
     public class DataObj
     {
+
+        public class CardData
+        {
+
+            public class Card
+            {
+                public string first6 { get; set; }
+                public string last4 { get; set; }
+                public string expiry_month { get; set; }
+                public string expiry_year { get; set; }
+                public string card_type { get; set; }
+            }
+
+            public string id { get; set; }
+            public string type { get; set; }
+            public string saved { get; set; }
+            public Card card { get; set; }
+            public string issuer_country { get; set; }
+            public string issuer_name { get; set; }
+
+
+
+        }
         /// <summary>
         /// id платежа
         /// </summary>
         public string id { get; set; }
+
+
+        /// <summary>
+        /// Статус платежа
+        /// </summary>
+        public string status { get; set; }
+
+        /// <summary>
+        /// Оплачен
+        /// </summary>
+        public bool paid { get; set; }
+
+
+
+        /*            public string created_at { get; set; }
+                    public string description { get; set; }
+                    public string expires_at { get; set; }
+
+
+                    public CardData payment_method { get; set; }
+                    public string title { get; set; }*/
     }
 
     public class PayM
@@ -28,18 +76,17 @@ namespace Gift_and_Salary_cards.Controllers
         public DataObj Object { get; set; }
     }
 
-    [Authorize]
+    
     public class CardController : Controller
     {
+        private readonly IUKassaService ukassaService;
         Client client = new Yandex.Checkout.V3.Client(
             shopId: "828374",
             secretKey: "test_Lflgiiq9CzEnOmi5Rzzj8TYYidssSxirAEJ1ikrmeDI");
 
-        public CardController()
+        public CardController(IUKassaService ukassaService)
         {
-
-
-
+            this.ukassaService = ukassaService;
         }
 
 
@@ -47,6 +94,7 @@ namespace Gift_and_Salary_cards.Controllers
         /// Страница зарплатной карты
         /// </summary>
         /// <returns></returns>
+        [Authorize]
         public IActionResult SalaryCard()
         {
             return View();
@@ -54,37 +102,36 @@ namespace Gift_and_Salary_cards.Controllers
 
 
         /// <summary>
-        /// Пополнение банковской карты
+        /// Пополнение банковской карты сотрудника
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> PaymentBank(PaymentFormViewModel model)
+        [Authorize]
+        public IActionResult PaymentBankCard(PaymentFormViewModel model)
         {
-
-
-
-
-
+            // Если данные на форме введены успешно, то необходимо приступить к дальнейшей логике
             if (ModelState.IsValid)
             {
+                // Получаем синоним банковской карты
+                var synonimCard = ukassaService.GetSynonimCard(model.bankCardNumber);
 
-                //if (result.Succeeded)
-                //{
+                // Если банковская карта не найдена, то вернуть ошибку об этом
+                if (synonimCard == null)
+                {
+                    ModelState.AddModelError("bankCardNumber", "Банковская карта не существует!");
 
-                //}
-                //else
-                //{
+                    return View("SalaryCard", model);
+                }
 
-                //}
+                // Если банковская карта найдена и получили ее синоним от юкассы, то создать ссылку для оплаты
+                // И сохранить данные в базе данных по оплате с соответствующим статусом
+
+
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
             }
-            else
-            {
-                //foreach (var error in result.Errors)
-                //{
-                //    ModelState.AddModelError(string.Empty, error.Description);
-                //}
-            }
+
 
             return View("SalaryCard", model);
         }
@@ -99,17 +146,32 @@ namespace Gift_and_Salary_cards.Controllers
             //serializer.Deserialize(Request.Body);
             //JsonConvert.deser(Request.Body);
 
-            string text = $"{model.type} | {model.Object?.id} | " + DateTime.Now.ToString();
 
-            // запись в файл
-            using (FileStream fstream = new FileStream($"__note.txt", FileMode.OpenOrCreate))
+
+            try
             {
-                // преобразуем строку в байты
-                byte[] array = System.Text.Encoding.Default.GetBytes(text);
-                // запись массива байтов в файл
-                fstream.Write(array, 0, array.Length);
-                Console.WriteLine("Текст записан в файл");
+                string text = $"{DateTime.Now}) {model.Object?.id}; {model.Object?.paid}; {model.Object?.status}";
+
+
+                System.IO.File.AppendAllText("__log.txt", text + "\n");
             }
+            catch (Exception ex)
+            {
+                System.IO.File.AppendAllText("__log.txt", $"{DateTime.Now}) {ex.Message}" + "\n");
+
+            }
+
+
+            //// запись в файл
+            //using (FileStream fstream = new FileStream($"__note.txt", FileMode.OpenOrCreate))
+            //{
+            //    // преобразуем строку в байты
+            //    byte[] array = System.Text.Encoding.Default.GetBytes(text);
+            //    // запись массива байтов в файл
+            //    fstream.Write(array, 0, array.Length);
+
+                
+            //}
 
             return Ok();
         }
@@ -132,7 +194,7 @@ namespace Gift_and_Salary_cards.Controllers
                 Capture = true,                
                 Receipt = new Receipt()
                 {                    
-                    Email = "fasgetz@yandex.ru",
+                    Email = "thefasgetz@yandex.ru",
                     Phone = "79629007965",
                     Items = new System.Collections.Generic.List<ReceiptItem>()
                     {

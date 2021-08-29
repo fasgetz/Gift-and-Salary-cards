@@ -1,4 +1,5 @@
 using Gift_and_Salary_cards.Models.Identity;
+using Gift_and_Salary_cards.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -50,6 +51,9 @@ namespace Gift_and_Salary_cards
                     opts.User.AllowedUserNameCharacters = ".@abcdefghijklmnopqrstuvwxyz"; // допустимые символы
                 })
                 .AddEntityFrameworkStores<ContextUsers>();
+
+
+            services.AddScoped<IUKassaService, UKassaService>();
 
             services.AddControllersWithViews();
         }
