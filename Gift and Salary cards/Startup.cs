@@ -1,3 +1,4 @@
+using Gift_and_Salary_cards.Models.DataBase;
 using Gift_and_Salary_cards.Models.Identity;
 using Gift_and_Salary_cards.Services;
 using Microsoft.AspNetCore.Builder;
@@ -28,21 +29,12 @@ namespace Gift_and_Salary_cards
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // If using Kestrel:
-            services.Configure<KestrelServerOptions>(options =>
-            {
-                options.AllowSynchronousIO = true;
-            });
-
-            // If using IIS:
-            services.Configure<IISServerOptions>(options =>
-            {
-                options.AllowSynchronousIO = true;
-            });
-
 
             services.AddDbContext<ContextUsers>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("UsersIdentityConnection")));
+
+            services.AddDbContext<GiftCardsContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<User, IdentityRole>(opts =>
                 {
