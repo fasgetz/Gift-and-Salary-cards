@@ -1,4 +1,5 @@
 ﻿using Gift_and_Salary_cards.Models.ServiceModels;
+using Microsoft.Extensions.Configuration;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,9 @@ namespace Gift_and_Salary_cards.Services
     /// <summary>
     /// Сервис по работе с юкассой
     /// </summary>
-    public class UKassaService : IUKassaService
+    public class UKassaServicePayout : IUKassaServicePayout
     {
+
 
         /// <summary>
         /// Метод, необходимый для получения синонима банковской карты
@@ -44,5 +46,7 @@ namespace Gift_and_Salary_cards.Services
 
             return null;
         }
+
+
     }
 }

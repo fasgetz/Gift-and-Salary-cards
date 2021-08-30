@@ -1,6 +1,7 @@
 ﻿using Gift_and_Salary_cards.Models.Identity;
 using Gift_and_Salary_cards.Models.ViewModels;
 using Gift_and_Salary_cards.Services;
+using Gift_and_Salary_cards.Services.ComissionService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -76,17 +77,24 @@ namespace Gift_and_Salary_cards.Controllers
         public DataObj Object { get; set; }
     }
 
-    
     public class CardController : Controller
     {
-        private readonly IUKassaService ukassaService;
+
+        private readonly UserManager<User> _userManager;
+        private readonly IUKassaServicePayout ukassaServicePayout;
+        private readonly IUkassaServicePayment ukassaServicePayment;
+        private readonly IComissionService comissionService;
+
         Client client = new Yandex.Checkout.V3.Client(
             shopId: "828374",
             secretKey: "test_Lflgiiq9CzEnOmi5Rzzj8TYYidssSxirAEJ1ikrmeDI");
 
-        public CardController(IUKassaService ukassaService)
+        public CardController(IUKassaServicePayout ukassaServicePayout, UserManager<User> userManager, IUkassaServicePayment ukassaServicePayment, IComissionService comissionService)
         {
-            this.ukassaService = ukassaService;
+            this.ukassaServicePayout = ukassaServicePayout;
+            _userManager = userManager;
+            this.ukassaServicePayment = ukassaServicePayment;
+            this.comissionService = comissionService;
         }
 
 
@@ -108,13 +116,14 @@ namespace Gift_and_Salary_cards.Controllers
         /// <returns></returns>
         [HttpPost]
         [Authorize]
-        public IActionResult PaymentBankCard(PaymentFormViewModel model)
+        public async Task<IActionResult> PaymentBankCard(PaymentFormViewModel model)
         {
+
             // Если данные на форме введены успешно, то необходимо приступить к дальнейшей логике
             if (ModelState.IsValid)
             {
                 // Получаем синоним банковской карты
-                var synonimCard = ukassaService.GetSynonimCard(model.bankCardNumber);
+                var synonimCard = ukassaServicePayout.GetSynonimCard(model.bankCardNumber);
 
                 // Если банковская карта не найдена, то вернуть ошибку об этом
                 if (synonimCard == null)
@@ -127,8 +136,44 @@ namespace Gift_and_Salary_cards.Controllers
                 // Если банковская карта найдена и получили ее синоним от юкассы, то создать ссылку для оплаты
                 // И сохранить данные в базе данных по оплате с соответствующим статусом
 
+                var userAuth = await _userManager.GetUserAsync(User);
 
-                var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                // Создаем платеж для пользователя
+                var payment = ukassaServicePayment.createPayment(model, userAuth);
+
+                if (payment != null)
+                {
+                    var getLastComission = await comissionService.getProcentComission();
+                    
+
+                    Models.DataBase.Payment payDb = new Models.DataBase.Payment()
+                    {
+                        PayerEmail = userAuth.Email,
+                        PayerPhone = userAuth.phone,
+                        Description = model.textPayment,
+                        SumPayment = model.moneyPayProcent,
+                        PaymentUserId = userAuth.Id,
+                        IdUkassa = payment.Id,
+                        IdComission = getLastComission.Id, // Задаем комиссию
+
+                        // Сразу задаем в списке, что платежка создана
+                        PaymentStatuses = new List<Models.DataBase.PaymentStatus>()
+                        {
+                            new Models.DataBase.PaymentStatus()
+                            {
+                                DateStatus = DateTime.Now,
+                                StatusPaymentId = 1
+                            }
+                        }
+                    };
+                }
+                // Получаем айди пользователя
+                string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                
+
+
+
+
 
             }
 

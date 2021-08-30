@@ -10,7 +10,7 @@ namespace Gift_and_Salary_cards.Services
     /// <summary>
     /// Интерфейс по работе с юкассой
     /// </summary>
-    public interface IUKassaService
+    public interface IUKassaServicePayout
     {
         /// <summary>
         /// Метод, необходимый для получения синонима банковской карты

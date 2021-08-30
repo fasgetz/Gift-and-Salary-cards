@@ -37,6 +37,7 @@ namespace Gift_and_Salary_cards.Models.ViewModels
 
         [Required(ErrorMessage = "Примечание к выплате обязательно к заполнению")]
         [Display(Name = "Примечание к выплате, которое увидит сотрудник")]
+        [MinLength(10, ErrorMessage = "Минимальное количество символов 10")]
         public string textPayment { get; set; }
 
 

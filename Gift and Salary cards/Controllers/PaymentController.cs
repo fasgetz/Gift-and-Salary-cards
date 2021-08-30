@@ -13,13 +13,39 @@ namespace Gift_and_Salary_cards.Controllers
     public class PaymentController : Controller
     {
 
-        private readonly IUKassaService ukassaService;
+        private readonly IUkassaServicePayment ukassaService;
 
-        public PaymentController(IUKassaService ukassaService)
+        public PaymentController(IUkassaServicePayment ukassaService)
         {
             this.ukassaService = ukassaService;
         }
 
 
+        public IActionResult Ok()
+        {
+            //var payment = ukassaService.createPayment(new PaymentFormViewModel()
+            //{
+            //    moneyPay = 5000,
+            //    moneyPayProcent = 5600
+            //});
+
+
+            var str = "as;";
+
+
+            return Ok();
+        }
+
+        public IActionResult Errors()
+        {
+
+            throw new Exception("test exception!!!");
+
+            int b = 0;
+
+            var a = 10 / b;
+
+            return Redirect("/");
+        }
     }
 }

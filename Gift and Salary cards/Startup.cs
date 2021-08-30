@@ -1,6 +1,8 @@
+using Gift_and_Salary_cards.Middlewares;
 using Gift_and_Salary_cards.Models.DataBase;
 using Gift_and_Salary_cards.Models.Identity;
 using Gift_and_Salary_cards.Services;
+using Gift_and_Salary_cards.Services.ComissionService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NLog.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +48,9 @@ namespace Gift_and_Salary_cards
                 .AddEntityFrameworkStores<ContextUsers>();
 
 
-            services.AddScoped<IUKassaService, UKassaService>();
+            services.AddScoped<IUKassaServicePayout, UKassaServicePayout>();
+            services.AddScoped<IUkassaServicePayment, UKassaServicePayment>();
+            services.AddScoped<IComissionService, Gift_and_Salary_cards.Services.ComissionService.ComissionService>();
 
             services.AddControllersWithViews();
         }
@@ -67,10 +72,14 @@ namespace Gift_and_Salary_cards
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.ApplicationServices.SetupNLogServiceLocator();
+
             app.UseRouting();
 
             app.UseAuthentication();    // подключение аутентификации
             app.UseAuthorization();
+
+            app.UseMiddleware<LoggerMiddleWare>();
 
             app.UseEndpoints(endpoints =>
             {

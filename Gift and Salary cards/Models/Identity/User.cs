@@ -36,5 +36,10 @@ namespace Gift_and_Salary_cards.Models.Identity
         /// Наименование организации представителя
         /// </summary>
         public string nameOrganization { get; set; }
+
+        /// <summary>
+        /// Телефон представителя
+        /// </summary>
+        public string phone { get; set; }
     }
 }
