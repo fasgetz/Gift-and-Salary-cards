@@ -27,7 +27,7 @@ namespace Gift_and_Salary_cards.Services.ComissionService
         /// <returns></returns>
         public async Task<Models.DataBase.ComissionService> getProcentComission()
         {
-            var comission = await db.ComissionServices.LastOrDefaultAsync();
+            var comission = await db.ComissionServices.OrderBy(i => i.Id).LastOrDefaultAsync();
 
 
             return comission;

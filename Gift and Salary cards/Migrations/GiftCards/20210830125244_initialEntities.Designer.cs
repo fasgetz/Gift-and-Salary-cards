@@ -4,14 +4,16 @@ using Gift_and_Salary_cards.Models.DataBase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Gift_and_Salary_cards.Migrations.GiftCards
 {
     [DbContext(typeof(GiftCardsContext))]
-    partial class GiftCardsContextModelSnapshot : ModelSnapshot
+    [Migration("20210830125244_initialEntities")]
+    partial class initialEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,9 +25,7 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
             modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.AccountBankStore", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("BankBicName")
                         .HasMaxLength(9)
@@ -35,9 +35,6 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<int?>("IdPayment")
-                        .HasColumnType("int");
-
                     b.Property<string>("PaymentPurpose")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
@@ -45,21 +42,12 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "IdPayment" }, "IX_AccountBankStore")
-                        .IsUnique()
-                        .HasFilter("[IdPayment] IS NOT NULL");
-
                     b.ToTable("AccountBankStore");
                 });
 
             modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.BankCardPayout", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("IdPayment")
                         .HasColumnType("int");
 
                     b.Property<string>("NumberCard")
@@ -67,10 +55,6 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
                         .HasColumnType("nvarchar(16)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex(new[] { "IdPayment" }, "IX_BankCardPayout")
-                        .IsUnique()
-                        .HasFilter("[IdPayment] IS NOT NULL");
 
                     b.ToTable("BankCardPayout");
                 });
@@ -200,8 +184,7 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("AddressEmp")
                         .HasColumnType("nvarchar(max)")
@@ -463,28 +446,6 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
                     b.ToTable("StatusPayoutType");
                 });
 
-            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.AccountBankStore", b =>
-                {
-                    b.HasOne("Gift_and_Salary_cards.Models.DataBase.Payment", "IdPaymentNavigation")
-                        .WithOne("AccountBankStore")
-                        .HasForeignKey("Gift_and_Salary_cards.Models.DataBase.AccountBankStore", "IdPayment")
-                        .HasConstraintName("FK_AccountBankStore_Payment")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("IdPaymentNavigation");
-                });
-
-            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.BankCardPayout", b =>
-                {
-                    b.HasOne("Gift_and_Salary_cards.Models.DataBase.Payment", "IdPaymentNavigation")
-                        .WithOne("BankCardPayout")
-                        .HasForeignKey("Gift_and_Salary_cards.Models.DataBase.BankCardPayout", "IdPayment")
-                        .HasConstraintName("FK_BankCardPayout_Payment")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("IdPaymentNavigation");
-                });
-
             modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.CheckPayment", b =>
                 {
                     b.HasOne("Gift_and_Salary_cards.Models.DataBase.Payment", "IdPaymentNavigation")
@@ -498,6 +459,18 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
 
             modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.Payment", b =>
                 {
+                    b.HasOne("Gift_and_Salary_cards.Models.DataBase.AccountBankStore", "IdNavigation")
+                        .WithOne("Payment")
+                        .HasForeignKey("Gift_and_Salary_cards.Models.DataBase.Payment", "Id")
+                        .HasConstraintName("FK_Payment_AccountBankStore")
+                        .IsRequired();
+
+                    b.HasOne("Gift_and_Salary_cards.Models.DataBase.BankCardPayout", "Id1")
+                        .WithOne("Payment")
+                        .HasForeignKey("Gift_and_Salary_cards.Models.DataBase.Payment", "Id")
+                        .HasConstraintName("FK_Payment_BankCardPayout")
+                        .IsRequired();
+
                     b.HasOne("Gift_and_Salary_cards.Models.DataBase.ComissionService", "IdComissionNavigation")
                         .WithMany("Payments")
                         .HasForeignKey("IdComission")
@@ -505,7 +478,11 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Id1");
+
                     b.Navigation("IdComissionNavigation");
+
+                    b.Navigation("IdNavigation");
                 });
 
             modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.PaymentStatus", b =>
@@ -575,6 +552,16 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
                     b.Navigation("IdRequestNavigation");
                 });
 
+            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.AccountBankStore", b =>
+                {
+                    b.Navigation("Payment");
+                });
+
+            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.BankCardPayout", b =>
+                {
+                    b.Navigation("Payment");
+                });
+
             modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.ComissionService", b =>
                 {
                     b.Navigation("Payments");
@@ -587,10 +574,6 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
 
             modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.Payment", b =>
                 {
-                    b.Navigation("AccountBankStore");
-
-                    b.Navigation("BankCardPayout");
-
                     b.Navigation("CheckPayments");
 
                     b.Navigation("PaymentStatuses");

@@ -83,14 +83,16 @@ namespace Gift_and_Salary_cards.Controllers
         private readonly UserManager<User> _userManager;
         private readonly IUKassaServicePayout ukassaServicePayout;
         private readonly IUkassaServicePayment ukassaServicePayment;
+        private readonly IPaymentService paymentService;
         private readonly IComissionService comissionService;
 
         Client client = new Yandex.Checkout.V3.Client(
             shopId: "828374",
             secretKey: "test_Lflgiiq9CzEnOmi5Rzzj8TYYidssSxirAEJ1ikrmeDI");
 
-        public CardController(IUKassaServicePayout ukassaServicePayout, UserManager<User> userManager, IUkassaServicePayment ukassaServicePayment, IComissionService comissionService)
+        public CardController(IPaymentService paymentService, IUKassaServicePayout ukassaServicePayout, UserManager<User> userManager, IUkassaServicePayment ukassaServicePayment, IComissionService comissionService)
         {
+            this.paymentService = paymentService;
             this.ukassaServicePayout = ukassaServicePayout;
             _userManager = userManager;
             this.ukassaServicePayment = ukassaServicePayment;
@@ -135,17 +137,22 @@ namespace Gift_and_Salary_cards.Controllers
 
                 // Если банковская карта найдена и получили ее синоним от юкассы, то создать ссылку для оплаты
                 // И сохранить данные в базе данных по оплате с соответствующим статусом
-
                 var userAuth = await _userManager.GetUserAsync(User);
+
+                var getLastComission = await comissionService.getProcentComission();
+
+                // Сумма выплаты с учетом процентов
+                model.moneyPayProcent = (model.moneyPay / 100 * getLastComission.Procent.Value) + model.moneyPay;
 
                 // Создаем платеж для пользователя
                 var payment = ukassaServicePayment.createPayment(model, userAuth);
 
                 if (payment != null)
                 {
-                    var getLastComission = await comissionService.getProcentComission();
-                    
 
+
+
+                    // Формируем платежку для бд
                     Models.DataBase.Payment payDb = new Models.DataBase.Payment()
                     {
                         PayerEmail = userAuth.Email,
@@ -162,19 +169,39 @@ namespace Gift_and_Salary_cards.Controllers
                             new Models.DataBase.PaymentStatus()
                             {
                                 DateStatus = DateTime.Now,
-                                StatusPaymentId = 1
+                                StatusPaymentId = 1,                                
                             }
+                        },
+
+                        AddressEmp = model.address,
+                        DateBirthEmp = model.dateBirth,
+                        DocIssueDateEmp = model.docIssueDate,
+                        DocNumberEmp = model.docNumber,
+                        CityEmp = model.city,
+                        NameEmp = model.Name,
+                        SurnameEmp = model.Surname,
+                        FamilyEmp = model.Family,
+                        CountryEmp = model.country,
+                        MoneyPayEmployee = model.moneyPay,
+                        PhoneNumberEmp = model.PhoneNumber,
+                        PostcodeEmp = model.postcode,
+                        BankCardPayout = new Models.DataBase.BankCardPayout()
+                        {
+                            NumberCard = model.bankCardNumber
                         }
                     };
+
+                    // Теперь сохраняем в базе данных платежку и кидаем пользователя на страницу оплаты
+                    bool addDataBase = paymentService.AddPayment(payDb);
+
+                    if (addDataBase == false)
+                    {
+                        return BadRequest("Ошибка добавления платежа в базу данных");
+                    }
+
+                    // Иначе кидаем на страницу оплаты
+                    return Redirect(payment.Confirmation.ConfirmationUrl);
                 }
-                // Получаем айди пользователя
-                string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                
-
-
-
-
-
             }
 
 

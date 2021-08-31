@@ -5,15 +5,9 @@ using System.Collections.Generic;
 
 namespace Gift_and_Salary_cards.Models.DataBase
 {
-    public partial class SynonimCard
+    public partial class RequestPayoutBankSynonim
     {
-        public SynonimCard()
-        {
-            TypePayouts = new HashSet<TypePayout>();
-        }
-
-        public int Id { get; set; }
-        public string NumberCard { get; set; }
+        public int IdRequest { get; set; }
         public string Reason { get; set; }
         public string SkrDestinationCardProductCode { get; set; }
         public string SkrDestinationCardProductName { get; set; }
@@ -25,6 +19,6 @@ namespace Gift_and_Salary_cards.Models.DataBase
         public string SkrDestinationCardBankName { get; set; }
         public string SkrDestinationCardPanmask { get; set; }
 
-        public virtual ICollection<TypePayout> TypePayouts { get; set; }
+        public virtual RequestPayout IdRequestNavigation { get; set; }
     }
 }

@@ -23,14 +23,17 @@ namespace Gift_and_Salary_cards.Services
 
 
 
-
-        public void AddPayment(Payment payment)
+        /// <summary>
+        /// Добавление платежа в базу данных
+        /// </summary>
+        /// <param name="payment"></param>
+        /// <returns>True, в случае успеха. Иначе если платежка не добавилась, то false</returns>
+        public bool AddPayment(Payment payment)
         {
-            //Payment pay = new Payment()
-            //{
-            //    Description = model.textPayment,
-            //};
+            db.Add(payment);
+            db.SaveChanges();
 
+            return true;
 
         }
 

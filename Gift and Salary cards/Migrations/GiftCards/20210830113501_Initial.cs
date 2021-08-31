@@ -67,41 +67,6 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
             //    });
 
             //migrationBuilder.CreateTable(
-            //    name: "SynonimCard",
-            //    columns: table => new
-            //    {
-            //        Id = table.Column<int>(type: "int", nullable: false)
-            //            .Annotation("SqlServer:Identity", "1, 1"),
-            //        NumberCard = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: true),
-            //        reason = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-            //        skr_destinationCardProductCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-            //        skr_destinationCardProductName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-            //        skr_destinationCardSynonim = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-            //        skr_destinationCardType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-            //        skr_cardBin = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-            //        skr_cardLast4 = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-            //        skr_destinationCardCountryCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-            //        skr_destinationCardBankName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-            //        skr_destinationCardPanmask = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
-            //    },
-            //    constraints: table =>
-            //    {
-            //        table.PrimaryKey("PK_SynonimCard", x => x.Id);
-            //    });
-
-            //migrationBuilder.CreateTable(
-            //    name: "TypesOfPayout",
-            //    columns: table => new
-            //    {
-            //        Id = table.Column<short>(type: "smallint", nullable: false),
-            //        Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
-            //    },
-            //    constraints: table =>
-            //    {
-            //        table.PrimaryKey("PK_TypesOfPayout", x => x.Id);
-            //    });
-
-            //migrationBuilder.CreateTable(
             //    name: "Payment",
             //    columns: table => new
             //    {
@@ -185,7 +150,6 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
             //    {
             //        Id = table.Column<int>(type: "int", nullable: false),
             //        IdEmployee = table.Column<int>(type: "int", nullable: false),
-            //        TypePayout = table.Column<short>(type: "smallint", nullable: false),
             //        SumToPayoutEmployee = table.Column<decimal>(type: "money", nullable: true),
             //        Description = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
             //        DateCreate = table.Column<DateTime>(type: "datetime", nullable: true)
@@ -208,7 +172,55 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
             //    });
 
             //migrationBuilder.CreateTable(
-            //    name: "StatusPayout",
+            //    name: "AccountBankStore",
+            //    columns: table => new
+            //    {
+            //        Id = table.Column<int>(type: "int", nullable: false),
+            //        BankBicName = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: true),
+            //        CustAccount = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+            //        payment_purpose = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
+            //    },
+            //    constraints: table =>
+            //    {
+            //        table.PrimaryKey("PK_AccountBankStore", x => x.Id);
+            //        table.ForeignKey(
+            //            name: "FK_AccountBankStore_Payout",
+            //            column: x => x.Id,
+            //            principalTable: "Payout",
+            //            principalColumn: "Id",
+            //            onDelete: ReferentialAction.Restrict);
+            //    });
+
+            //migrationBuilder.CreateTable(
+            //    name: "BankCardPayout",
+            //    columns: table => new
+            //    {
+            //        Id = table.Column<int>(type: "int", nullable: false),
+            //        NumberCard = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: true),
+            //        reason = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+            //        skr_destinationCardProductCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+            //        skr_destinationCardProductName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+            //        skr_destinationCardSynonim = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+            //        skr_destinationCardType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+            //        skr_cardBin = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+            //        skr_cardLast4 = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+            //        skr_destinationCardCountryCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+            //        skr_destinationCardBankName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+            //        skr_destinationCardPanmask = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+            //    },
+            //    constraints: table =>
+            //    {
+            //        table.PrimaryKey("PK_BankCardPayout", x => x.Id);
+            //        table.ForeignKey(
+            //            name: "FK_BankCardPayout_Payout",
+            //            column: x => x.Id,
+            //            principalTable: "Payout",
+            //            principalColumn: "Id",
+            //            onDelete: ReferentialAction.Restrict);
+            //    });
+
+            //migrationBuilder.CreateTable(
+            //    name: "RequestPayout",
             //    columns: table => new
             //    {
             //        Id = table.Column<int>(type: "int", nullable: false)
@@ -222,7 +234,7 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
             //    },
             //    constraints: table =>
             //    {
-            //        table.PrimaryKey("PK_StatusPayout", x => x.Id);
+            //        table.PrimaryKey("PK_RequestPayout", x => x.Id);
             //        table.ForeignKey(
             //            name: "FK_StatusPayout_Payout",
             //            column: x => x.IdPayout,
@@ -238,32 +250,28 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
             //    });
 
             //migrationBuilder.CreateTable(
-            //    name: "TypePayout",
+            //    name: "RequestPayoutBankSynonim",
             //    columns: table => new
             //    {
-            //        Id = table.Column<int>(type: "int", nullable: false),
-            //        IdType = table.Column<short>(type: "smallint", nullable: true),
-            //        IdDataCardOrBankAccount = table.Column<int>(type: "int", nullable: true)
+            //        IdRequest = table.Column<int>(type: "int", nullable: false),
+            //        reason = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+            //        skr_destinationCardProductCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+            //        skr_destinationCardProductName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+            //        skr_destinationCardSynonim = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+            //        skr_destinationCardType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+            //        skr_cardBin = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+            //        skr_cardLast4 = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+            //        skr_destinationCardCountryCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+            //        skr_destinationCardBankName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+            //        skr_destinationCardPanmask = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
             //    },
             //    constraints: table =>
             //    {
-            //        table.PrimaryKey("PK_TypePayout", x => x.Id);
+            //        table.PrimaryKey("PK_RequestPayoutDataType", x => x.IdRequest);
             //        table.ForeignKey(
-            //            name: "FK_TypePayout_Payout",
-            //            column: x => x.Id,
-            //            principalTable: "Payout",
-            //            principalColumn: "Id",
-            //            onDelete: ReferentialAction.Cascade);
-            //        table.ForeignKey(
-            //            name: "FK_TypePayout_SynonimCard",
-            //            column: x => x.IdDataCardOrBankAccount,
-            //            principalTable: "SynonimCard",
-            //            principalColumn: "Id",
-            //            onDelete: ReferentialAction.Restrict);
-            //        table.ForeignKey(
-            //            name: "FK_TypePayout_TypesOfPayout",
-            //            column: x => x.IdType,
-            //            principalTable: "TypesOfPayout",
+            //            name: "FK_RequestPayoutBankSynonim_RequestPayout",
+            //            column: x => x.IdRequest,
+            //            principalTable: "RequestPayout",
             //            principalColumn: "Id",
             //            onDelete: ReferentialAction.Restrict);
             //    });
@@ -294,28 +302,24 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
             //    column: "IdEmployee");
 
             //migrationBuilder.CreateIndex(
-            //    name: "IX_StatusPayout_IdPayout",
-            //    table: "StatusPayout",
+            //    name: "IX_RequestPayout_IdPayout",
+            //    table: "RequestPayout",
             //    column: "IdPayout");
 
             //migrationBuilder.CreateIndex(
-            //    name: "IX_StatusPayout_IdStatus",
-            //    table: "StatusPayout",
+            //    name: "IX_RequestPayout_IdStatus",
+            //    table: "RequestPayout",
             //    column: "IdStatus");
-
-            //migrationBuilder.CreateIndex(
-            //    name: "IX_TypePayout_IdDataCardOrBankAccount",
-            //    table: "TypePayout",
-            //    column: "IdDataCardOrBankAccount");
-
-            //migrationBuilder.CreateIndex(
-            //    name: "IX_TypePayout_IdType",
-            //    table: "TypePayout",
-            //    column: "IdType");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            //migrationBuilder.DropTable(
+            //    name: "AccountBankStore");
+
+            //migrationBuilder.DropTable(
+            //    name: "BankCardPayout");
+
             //migrationBuilder.DropTable(
             //    name: "CheckPayment");
 
@@ -323,25 +327,19 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
             //    name: "PaymentStatuses");
 
             //migrationBuilder.DropTable(
-            //    name: "StatusPayout");
-
-            //migrationBuilder.DropTable(
-            //    name: "TypePayout");
+            //    name: "RequestPayoutBankSynonim");
 
             //migrationBuilder.DropTable(
             //    name: "StatusPaymentType");
 
             //migrationBuilder.DropTable(
-            //    name: "StatusPayoutType");
+            //    name: "RequestPayout");
 
             //migrationBuilder.DropTable(
             //    name: "Payout");
 
             //migrationBuilder.DropTable(
-            //    name: "SynonimCard");
-
-            //migrationBuilder.DropTable(
-            //    name: "TypesOfPayout");
+            //    name: "StatusPayoutType");
 
             //migrationBuilder.DropTable(
             //    name: "Employees");

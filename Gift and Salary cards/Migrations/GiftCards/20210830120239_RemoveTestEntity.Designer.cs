@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gift_and_Salary_cards.Migrations.GiftCards
 {
     [DbContext(typeof(GiftCardsContext))]
-    [Migration("20210829154901_Initial")]
-    partial class Initial
+    [Migration("20210830120239_RemoveTestEntity")]
+    partial class RemoveTestEntity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,6 +21,43 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.AccountBankStore", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BankBicName")
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
+
+                    b.Property<string>("CustAccount")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("PaymentPurpose")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("payment_purpose");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AccountBankStore");
+                });
+
+            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.BankCardPayout", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NumberCard")
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BankCardPayout");
+                });
 
             modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.CheckPayment", b =>
                 {
@@ -147,12 +184,42 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    b.Property<string>("AddressEmp")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("addressEmp");
+
+                    b.Property<string>("CityEmp")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("cityEmp");
+
+                    b.Property<string>("CountryEmp")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("countryEmp");
+
+                    b.Property<DateTime>("DateBirthEmp")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("dateBirthEmp")
+                        .HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
 
                     b.Property<string>("Description")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("DocIssueDateEmp")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("docIssueDateEmp")
+                        .HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
+
+                    b.Property<string>("DocNumberEmp")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("docNumberEmp");
+
+                    b.Property<string>("FamilyEmp")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<short>("IdComission")
                         .HasColumnType("smallint");
@@ -160,6 +227,13 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
                     b.Property<string>("IdUkassa")
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
+
+                    b.Property<decimal>("MoneyPayEmployee")
+                        .HasColumnType("money")
+                        .HasColumnName("moneyPayEmployee");
+
+                    b.Property<string>("NameEmp")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PayerEmail")
                         .IsRequired()
@@ -175,8 +249,18 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("PhoneNumberEmp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostcodeEmp")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("postcodeEmp");
+
                     b.Property<decimal>("SumPayment")
                         .HasColumnType("money");
+
+                    b.Property<string>("SurnameEmp")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -228,9 +312,6 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
                     b.Property<decimal?>("SumToPayoutEmployee")
                         .HasColumnType("money");
 
-                    b.Property<short>("TypePayout")
-                        .HasColumnType("smallint");
-
                     b.HasKey("Id");
 
                     b.HasIndex("IdEmployee");
@@ -238,21 +319,7 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
                     b.ToTable("Payout");
                 });
 
-            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.StatusPaymentType", b =>
-                {
-                    b.Property<short>("Id")
-                        .HasColumnType("smallint");
-
-                    b.Property<string>("StatusName")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("StatusPaymentType");
-                });
-
-            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.StatusPayout", b =>
+            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.RequestPayout", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -287,33 +354,13 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
 
                     b.HasIndex("IdStatus");
 
-                    b.ToTable("StatusPayout");
+                    b.ToTable("RequestPayout");
                 });
 
-            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.StatusPayoutType", b =>
+            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.RequestPayoutBankSynonim", b =>
                 {
-                    b.Property<short>("Id")
-                        .HasColumnType("smallint");
-
-                    b.Property<string>("StatusName")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("StatusPayoutType");
-                });
-
-            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.SynonimCard", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("NumberCard")
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
+                    b.Property<int>("IdRequest")
+                        .HasColumnType("int");
 
                     b.Property<string>("Reason")
                         .HasMaxLength(50)
@@ -365,43 +412,38 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("skr_destinationCardType");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdRequest")
+                        .HasName("PK_RequestPayoutDataType");
 
-                    b.ToTable("SynonimCard");
+                    b.ToTable("RequestPayoutBankSynonim");
                 });
 
-            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.TypePayout", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IdDataCardOrBankAccount")
-                        .HasColumnType("int");
-
-                    b.Property<short?>("IdType")
-                        .HasColumnType("smallint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdDataCardOrBankAccount");
-
-                    b.HasIndex("IdType");
-
-                    b.ToTable("TypePayout");
-                });
-
-            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.TypesOfPayout", b =>
+            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.StatusPaymentType", b =>
                 {
                     b.Property<short>("Id")
                         .HasColumnType("smallint");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("StatusName")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TypesOfPayout");
+                    b.ToTable("StatusPaymentType");
+                });
+
+            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.StatusPayoutType", b =>
+                {
+                    b.Property<short>("Id")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("StatusName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StatusPayoutType");
                 });
 
             modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.CheckPayment", b =>
@@ -417,6 +459,18 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
 
             modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.Payment", b =>
                 {
+                    b.HasOne("Gift_and_Salary_cards.Models.DataBase.AccountBankStore", "IdNavigation")
+                        .WithOne("Payment")
+                        .HasForeignKey("Gift_and_Salary_cards.Models.DataBase.Payment", "Id")
+                        .HasConstraintName("FK_Payment_AccountBankStore")
+                        .IsRequired();
+
+                    b.HasOne("Gift_and_Salary_cards.Models.DataBase.BankCardPayout", "Id1")
+                        .WithOne("Payment")
+                        .HasForeignKey("Gift_and_Salary_cards.Models.DataBase.Payment", "Id")
+                        .HasConstraintName("FK_Payment_BankCardPayout")
+                        .IsRequired();
+
                     b.HasOne("Gift_and_Salary_cards.Models.DataBase.ComissionService", "IdComissionNavigation")
                         .WithMany("Payments")
                         .HasForeignKey("IdComission")
@@ -424,7 +478,11 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Id1");
+
                     b.Navigation("IdComissionNavigation");
+
+                    b.Navigation("IdNavigation");
                 });
 
             modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.PaymentStatus", b =>
@@ -466,15 +524,15 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
                     b.Navigation("IdNavigation");
                 });
 
-            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.StatusPayout", b =>
+            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.RequestPayout", b =>
                 {
                     b.HasOne("Gift_and_Salary_cards.Models.DataBase.Payout", "IdPayoutNavigation")
-                        .WithMany("StatusPayouts")
+                        .WithMany("RequestPayouts")
                         .HasForeignKey("IdPayout")
                         .HasConstraintName("FK_StatusPayout_Payout");
 
                     b.HasOne("Gift_and_Salary_cards.Models.DataBase.StatusPayoutType", "IdStatusNavigation")
-                        .WithMany("StatusPayouts")
+                        .WithMany("RequestPayouts")
                         .HasForeignKey("IdStatus")
                         .HasConstraintName("FK_StatusPayout_StatusPayoutType");
 
@@ -483,30 +541,25 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
                     b.Navigation("IdStatusNavigation");
                 });
 
-            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.TypePayout", b =>
+            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.RequestPayoutBankSynonim", b =>
                 {
-                    b.HasOne("Gift_and_Salary_cards.Models.DataBase.Payout", "IdNavigation")
-                        .WithOne("TypePayoutNavigation")
-                        .HasForeignKey("Gift_and_Salary_cards.Models.DataBase.TypePayout", "Id")
-                        .HasConstraintName("FK_TypePayout_Payout")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("Gift_and_Salary_cards.Models.DataBase.RequestPayout", "IdRequestNavigation")
+                        .WithOne("RequestPayoutBankSynonim")
+                        .HasForeignKey("Gift_and_Salary_cards.Models.DataBase.RequestPayoutBankSynonim", "IdRequest")
+                        .HasConstraintName("FK_RequestPayoutBankSynonim_RequestPayout")
                         .IsRequired();
 
-                    b.HasOne("Gift_and_Salary_cards.Models.DataBase.SynonimCard", "IdDataCardOrBankAccountNavigation")
-                        .WithMany("TypePayouts")
-                        .HasForeignKey("IdDataCardOrBankAccount")
-                        .HasConstraintName("FK_TypePayout_SynonimCard");
+                    b.Navigation("IdRequestNavigation");
+                });
 
-                    b.HasOne("Gift_and_Salary_cards.Models.DataBase.TypesOfPayout", "IdTypeNavigation")
-                        .WithMany("TypePayouts")
-                        .HasForeignKey("IdType")
-                        .HasConstraintName("FK_TypePayout_TypesOfPayout");
+            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.AccountBankStore", b =>
+                {
+                    b.Navigation("Payment");
+                });
 
-                    b.Navigation("IdDataCardOrBankAccountNavigation");
-
-                    b.Navigation("IdNavigation");
-
-                    b.Navigation("IdTypeNavigation");
+            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.BankCardPayout", b =>
+                {
+                    b.Navigation("Payment");
                 });
 
             modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.ComissionService", b =>
@@ -530,9 +583,12 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
 
             modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.Payout", b =>
                 {
-                    b.Navigation("StatusPayouts");
+                    b.Navigation("RequestPayouts");
+                });
 
-                    b.Navigation("TypePayoutNavigation");
+            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.RequestPayout", b =>
+                {
+                    b.Navigation("RequestPayoutBankSynonim");
                 });
 
             modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.StatusPaymentType", b =>
@@ -542,17 +598,7 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
 
             modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.StatusPayoutType", b =>
                 {
-                    b.Navigation("StatusPayouts");
-                });
-
-            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.SynonimCard", b =>
-                {
-                    b.Navigation("TypePayouts");
-                });
-
-            modelBuilder.Entity("Gift_and_Salary_cards.Models.DataBase.TypesOfPayout", b =>
-                {
-                    b.Navigation("TypePayouts");
+                    b.Navigation("RequestPayouts");
                 });
 #pragma warning restore 612, 618
         }

@@ -17,18 +17,18 @@ namespace Gift_and_Salary_cards.Models.DataBase
         {
         }
 
+        public virtual DbSet<AccountBankStore> AccountBankStores { get; set; }
+        public virtual DbSet<BankCardPayout> BankCardPayouts { get; set; }
         public virtual DbSet<CheckPayment> CheckPayments { get; set; }
         public virtual DbSet<ComissionService> ComissionServices { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<PaymentStatus> PaymentStatuses { get; set; }
         public virtual DbSet<Payout> Payouts { get; set; }
+        public virtual DbSet<RequestPayout> RequestPayouts { get; set; }
+        public virtual DbSet<RequestPayoutBankSynonim> RequestPayoutBankSynonims { get; set; }
         public virtual DbSet<StatusPaymentType> StatusPaymentTypes { get; set; }
-        public virtual DbSet<StatusPayout> StatusPayouts { get; set; }
         public virtual DbSet<StatusPayoutType> StatusPayoutTypes { get; set; }
-        public virtual DbSet<SynonimCard> SynonimCards { get; set; }
-        public virtual DbSet<TypePayout> TypePayouts { get; set; }
-        public virtual DbSet<TypesOfPayout> TypesOfPayouts { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -41,6 +41,44 @@ namespace Gift_and_Salary_cards.Models.DataBase
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Cyrillic_General_CI_AS");
+
+            modelBuilder.Entity<AccountBankStore>(entity =>
+            {
+                entity.ToTable("AccountBankStore");
+
+                entity.HasIndex(e => e.IdPayment, "IX_AccountBankStore")
+                    .IsUnique();
+
+                entity.Property(e => e.BankBicName).HasMaxLength(9);
+
+                entity.Property(e => e.CustAccount).HasMaxLength(20);
+
+                entity.Property(e => e.PaymentPurpose)
+                    .HasMaxLength(100)
+                    .HasColumnName("payment_purpose");
+
+                entity.HasOne(d => d.IdPaymentNavigation)
+                    .WithOne(p => p.AccountBankStore)
+                    .HasForeignKey<AccountBankStore>(d => d.IdPayment)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_AccountBankStore_Payment");
+            });
+
+            modelBuilder.Entity<BankCardPayout>(entity =>
+            {
+                entity.ToTable("BankCardPayout");
+
+                entity.HasIndex(e => e.IdPayment, "IX_BankCardPayout")
+                    .IsUnique();
+
+                entity.Property(e => e.NumberCard).HasMaxLength(16);
+
+                entity.HasOne(d => d.IdPaymentNavigation)
+                    .WithOne(p => p.BankCardPayout)
+                    .HasForeignKey<BankCardPayout>(d => d.IdPayment)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_BankCardPayout_Payment");
+            });
 
             modelBuilder.Entity<CheckPayment>(entity =>
             {
@@ -125,9 +163,29 @@ namespace Gift_and_Salary_cards.Models.DataBase
             {
                 entity.ToTable("Payment");
 
+                entity.Property(e => e.AddressEmp).HasColumnName("addressEmp");
+
+                entity.Property(e => e.CityEmp).HasColumnName("cityEmp");
+
+                entity.Property(e => e.CountryEmp).HasColumnName("countryEmp");
+
+                entity.Property(e => e.DateBirthEmp)
+                    .HasColumnName("dateBirthEmp")
+                    .HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
+
                 entity.Property(e => e.Description).HasMaxLength(100);
 
+                entity.Property(e => e.DocIssueDateEmp)
+                    .HasColumnName("docIssueDateEmp")
+                    .HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
+
+                entity.Property(e => e.DocNumberEmp).HasColumnName("docNumberEmp");
+
                 entity.Property(e => e.IdUkassa).HasMaxLength(150);
+
+                entity.Property(e => e.MoneyPayEmployee)
+                    .HasColumnType("money")
+                    .HasColumnName("moneyPayEmployee");
 
                 entity.Property(e => e.PayerEmail)
                     .IsRequired()
@@ -138,6 +196,8 @@ namespace Gift_and_Salary_cards.Models.DataBase
                 entity.Property(e => e.PaymentUserId)
                     .IsRequired()
                     .HasMaxLength(450);
+
+                entity.Property(e => e.PostcodeEmp).HasColumnName("postcodeEmp");
 
                 entity.Property(e => e.SumPayment).HasColumnType("money");
 
@@ -188,18 +248,9 @@ namespace Gift_and_Salary_cards.Models.DataBase
                     .HasConstraintName("FK_Payout_Employees");
             });
 
-            modelBuilder.Entity<StatusPaymentType>(entity =>
+            modelBuilder.Entity<RequestPayout>(entity =>
             {
-                entity.ToTable("StatusPaymentType");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.StatusName).HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<StatusPayout>(entity =>
-            {
-                entity.ToTable("StatusPayout");
+                entity.ToTable("RequestPayout");
 
                 entity.Property(e => e.RequestDate)
                     .HasMaxLength(10)
@@ -210,30 +261,24 @@ namespace Gift_and_Salary_cards.Models.DataBase
                 entity.Property(e => e.ResponseMessage).HasMaxLength(150);
 
                 entity.HasOne(d => d.IdPayoutNavigation)
-                    .WithMany(p => p.StatusPayouts)
+                    .WithMany(p => p.RequestPayouts)
                     .HasForeignKey(d => d.IdPayout)
                     .HasConstraintName("FK_StatusPayout_Payout");
 
                 entity.HasOne(d => d.IdStatusNavigation)
-                    .WithMany(p => p.StatusPayouts)
+                    .WithMany(p => p.RequestPayouts)
                     .HasForeignKey(d => d.IdStatus)
                     .HasConstraintName("FK_StatusPayout_StatusPayoutType");
             });
 
-            modelBuilder.Entity<StatusPayoutType>(entity =>
+            modelBuilder.Entity<RequestPayoutBankSynonim>(entity =>
             {
-                entity.ToTable("StatusPayoutType");
+                entity.HasKey(e => e.IdRequest)
+                    .HasName("PK_RequestPayoutDataType");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.ToTable("RequestPayoutBankSynonim");
 
-                entity.Property(e => e.StatusName).HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<SynonimCard>(entity =>
-            {
-                entity.ToTable("SynonimCard");
-
-                entity.Property(e => e.NumberCard).HasMaxLength(16);
+                entity.Property(e => e.IdRequest).ValueGeneratedNever();
 
                 entity.Property(e => e.Reason)
                     .HasMaxLength(50)
@@ -274,37 +319,30 @@ namespace Gift_and_Salary_cards.Models.DataBase
                 entity.Property(e => e.SkrDestinationCardType)
                     .HasMaxLength(50)
                     .HasColumnName("skr_destinationCardType");
+
+                entity.HasOne(d => d.IdRequestNavigation)
+                    .WithOne(p => p.RequestPayoutBankSynonim)
+                    .HasForeignKey<RequestPayoutBankSynonim>(d => d.IdRequest)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_RequestPayoutBankSynonim_RequestPayout");
             });
 
-            modelBuilder.Entity<TypePayout>(entity =>
+            modelBuilder.Entity<StatusPaymentType>(entity =>
             {
-                entity.ToTable("TypePayout");
+                entity.ToTable("StatusPaymentType");
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
-                entity.HasOne(d => d.IdNavigation)
-                    .WithOne(p => p.TypePayoutNavigation)
-                    .HasForeignKey<TypePayout>(d => d.Id)
-                    .HasConstraintName("FK_TypePayout_Payout");
-
-                entity.HasOne(d => d.IdDataCardOrBankAccountNavigation)
-                    .WithMany(p => p.TypePayouts)
-                    .HasForeignKey(d => d.IdDataCardOrBankAccount)
-                    .HasConstraintName("FK_TypePayout_SynonimCard");
-
-                entity.HasOne(d => d.IdTypeNavigation)
-                    .WithMany(p => p.TypePayouts)
-                    .HasForeignKey(d => d.IdType)
-                    .HasConstraintName("FK_TypePayout_TypesOfPayout");
+                entity.Property(e => e.StatusName).HasMaxLength(50);
             });
 
-            modelBuilder.Entity<TypesOfPayout>(entity =>
+            modelBuilder.Entity<StatusPayoutType>(entity =>
             {
-                entity.ToTable("TypesOfPayout");
+                entity.ToTable("StatusPayoutType");
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
-                entity.Property(e => e.Name).HasMaxLength(50);
+                entity.Property(e => e.StatusName).HasMaxLength(50);
             });
 
             OnModelCreatingPartial(modelBuilder);

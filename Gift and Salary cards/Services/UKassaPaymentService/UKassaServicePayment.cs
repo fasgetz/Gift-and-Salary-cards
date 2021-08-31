@@ -21,6 +21,8 @@ namespace Gift_and_Salary_cards.Services
         /// </summary>
         private readonly Client client;
 
+        private readonly IConfiguration config;
+
         /// <summary>
         /// Контекст базы данных
         /// </summary>
@@ -29,6 +31,8 @@ namespace Gift_and_Salary_cards.Services
 
         public UKassaServicePayment(IConfiguration config)
         {
+            this.config = config;
+
             // Биндинги
             var secretKey = config.GetValue<string>("ukassaSettings:paymentSettings:secretKey");
             var shopId = config.GetValue<string>("ukassaSettings:paymentSettings:shopId");
@@ -49,11 +53,11 @@ namespace Gift_and_Salary_cards.Services
             // 1. Создайте платеж и получите ссылку для оплаты
             var newPayment = new NewPayment
             {
-                Amount = new Amount { Value = model.moneyPay, Currency = "RUB" },
+                Amount = new Amount { Value = model.moneyPayProcent, Currency = "RUB" },
                 Confirmation = new Confirmation
                 {
                     Type = ConfirmationType.Redirect,
-                    ReturnUrl = "http://localhost/thankyou?idpayment=fasfd"
+                    ReturnUrl = config.GetValue<string>("ukassaSettings:paymentSettings:returnUrl")
                 },
                 Description = model.textPayment,
                 Capture = true,

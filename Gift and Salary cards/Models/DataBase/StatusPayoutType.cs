@@ -9,12 +9,12 @@ namespace Gift_and_Salary_cards.Models.DataBase
     {
         public StatusPayoutType()
         {
-            StatusPayouts = new HashSet<StatusPayout>();
+            RequestPayouts = new HashSet<RequestPayout>();
         }
 
         public short Id { get; set; }
         public string StatusName { get; set; }
 
-        public virtual ICollection<StatusPayout> StatusPayouts { get; set; }
+        public virtual ICollection<RequestPayout> RequestPayouts { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Gift_and_Salary_cards.Models.DataBase
 {
-    public partial class StatusPayout
+    public partial class RequestPayout
     {
         public int Id { get; set; }
         public int? IdPayout { get; set; }
@@ -17,5 +17,6 @@ namespace Gift_and_Salary_cards.Models.DataBase
 
         public virtual Payout IdPayoutNavigation { get; set; }
         public virtual StatusPayoutType IdStatusNavigation { get; set; }
+        public virtual RequestPayoutBankSynonim RequestPayoutBankSynonim { get; set; }
     }
 }

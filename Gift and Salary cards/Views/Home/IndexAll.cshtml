@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Главная";
+    ViewData["Title"] = "Зарплатные карты | Выплаты сотрудникам";
 }
 
 @section Css {
@@ -38,6 +38,52 @@
                 </div>
                 <div class="col-12 col-lg-6 align-items-center d-flex about-service__img-block">
                     <img class="w-100" src="img/zarplata.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="howuse-block" id="comission-block">
+    <div class="container">
+        <div class="row mt-3">
+            <h3 class="col-12 text-center">Прайс лист virtcards</h3>
+            <div class="container">
+                <div class="row mt-5 text-center">
+                    <div class="col-12 col-lg-4">
+                        <div class="howuse-block__item m-3 p-3">
+                            <h5>Низкие комиссии</h5>
+                            <div class="mt-3">
+                                Комиссионные сборы сервиса <a class="about-service__address" asp-controller="Home" asp-action="Index">virtcards</a> за предоставление услуг по начислению денежных средств составляют всего <b>12%</b> от суммы платежа
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="howuse-block__item m-3 p-3">
+                            <h5>Размер выплат</h5>
+                            <div class="mt-3">
+                                <p>Разовый размер выплат составляет от 1 000 до 60 000 рублей за транзакцию</p>
+                                <span class="text-muted">При оплате учитывайте комиссию сервиса в размере <b>12 %</b></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="howuse-block__item m-3 p-3">
+                            <h5>Лимиты выплат</h5>
+                            <div class="mt-3">
+                                <ul class="list-unstyled">
+                                    <li>От 100 до 60 000 рублей за транзацию</li>
+                                    <li>До 300 000 рублей в сутки</li>
+                                    <li>до 600 000 рублей в календарный месяц</li>
+                                </ul>
+                                <span class="text-muted">Лимиты действуют на один банковский счет/карту</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3">                        
+                        <div class="comission-img">
+                            <img src="~/img/procent.png" alt="Alternate Text" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -142,21 +188,7 @@
         </div>
     </div>
 </section>
-<section class="howuse-block">
-    <div class="container">
-        <div class="row mt-3">
-            <h3 class="col-12 text-center">Низкие комиссии</h3>
-            <div class="container">
-                <div class="row mt-5 text-center">
-                    <h5>Комиссионные сборы сервиса <a class="about-service__address" asp-controller="Home" asp-action="Index">virtcards</a> составляют всего <b>12%</b> от суммы платежа</h5>
-                    <div class="comission-img">
-                        <img src="~/img/procent.png" alt="Alternate Text" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+
 <section class="benefits-block mt-5 mb-5">
     <div class="container">
         <div class="row">

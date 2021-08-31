@@ -50,6 +50,7 @@ namespace Gift_and_Salary_cards
 
             services.AddScoped<IUKassaServicePayout, UKassaServicePayout>();
             services.AddScoped<IUkassaServicePayment, UKassaServicePayment>();
+            services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<IComissionService, Gift_and_Salary_cards.Services.ComissionService.ComissionService>();
 
             services.AddControllersWithViews();
