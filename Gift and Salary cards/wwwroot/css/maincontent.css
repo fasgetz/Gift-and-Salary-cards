@@ -137,6 +137,8 @@ h3 {
     }
 
 
+
+
 /* Наши преимущества */
 .benefits-block {
     padding-top: 50px;
@@ -169,6 +171,10 @@ h3 {
 
 /* медиа */
 @media (max-width: 991px) {
+    .howuse-block__item div {
+        height: 100px !important
+    }
+
     .comission-img img {
         object-fit: cover !important;
         height: 100%;
@@ -184,7 +190,12 @@ h3 {
     }
 }
 
+
+
 @media (max-width: 768px) {
+
+
+
     .benefits-block__item-text {
         width: 330px;
     }
@@ -223,9 +234,15 @@ h3 {
         height: 700px;
     }
 
-    .main-content {
+/*    .main-content {
         margin-top: 30px;
-    }
+    }*/
 }
 
+/* медиа */
+@media (max-width: 1399px) {
+    .howuse-block__item div {
+        height: 170px
+    }
+}
 

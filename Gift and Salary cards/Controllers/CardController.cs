@@ -17,7 +17,7 @@ using Yandex.Checkout.V3;
 namespace Gift_and_Salary_cards.Controllers
 {
 
-
+    [Authorize]
     public class CardController : Controller
     {
 
@@ -43,7 +43,7 @@ namespace Gift_and_Salary_cards.Controllers
         /// Страница зарплатной карты
         /// </summary>
         /// <returns></returns>
-        [Authorize]
+        
         public IActionResult SalaryCard()
         {
             return View();
@@ -56,7 +56,6 @@ namespace Gift_and_Salary_cards.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> PaymentBankCard(PaymentFormViewModel model)
         {
 

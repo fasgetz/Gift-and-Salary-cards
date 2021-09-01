@@ -1,0 +1,33 @@
+﻿
+
+
+.menu {
+    background: #232d37;
+    min-height: 820px
+}
+
+    .menu a {
+        text-decoration: none;
+    }
+
+.profile-block li:hover {
+    background: #181b21
+}
+
+.item-menu {
+    color: #a7c0da;
+    border-top: 0.7px solid #2c3640;
+    border-bottom: 0.7px solid #2c3640;
+    padding-left: 30px !important
+}
+
+
+.item-menu-active {
+    background: #181b21
+}
+
+@media (max-width: 991.9px) {
+    .menu {
+        min-height: auto;
+    }
+}

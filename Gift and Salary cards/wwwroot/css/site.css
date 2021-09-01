@@ -40,15 +40,17 @@ html {
     }
 }
 
+
+
+.main-content {
+    margin-top: 60px;
+}
+
 @media (max-width: 768px) {
 
     .main-content {
-        margin-top: 7rem !important;
+        margin-top: 100px;
     }
-}
-
-.main-content {
-    margin-top: 5rem;
 }
 
 .border-top {
