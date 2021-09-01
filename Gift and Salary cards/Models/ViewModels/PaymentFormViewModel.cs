@@ -27,7 +27,7 @@ namespace Gift_and_Salary_cards.Models.ViewModels
 
         [Required]
         [Display(Name = "Сумма пополнения карты сотрудника")]
-        [Range(1, 60000, ErrorMessage = "Сумма пополнения за раз может быть не больше 60 000 Р")]
+        [Range(1000, 60000, ErrorMessage = "Сумма пополнения за раз может быть не больше 60 000 Р")]
         public decimal moneyPay { get; set; }
 
         [Required]

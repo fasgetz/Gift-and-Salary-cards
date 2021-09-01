@@ -4,14 +4,16 @@ using Gift_and_Salary_cards.Models.DataBase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Gift_and_Salary_cards.Migrations.GiftCards
 {
     [DbContext(typeof(GiftCardsContext))]
-    partial class GiftCardsContextModelSnapshot : ModelSnapshot
+    [Migration("20210901101210_InitialNew111s")]
+    partial class InitialNew111s
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

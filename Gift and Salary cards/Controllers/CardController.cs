@@ -18,65 +18,6 @@ namespace Gift_and_Salary_cards.Controllers
 {
 
 
-    public class DataObj
-    {
-
-        public class CardData
-        {
-
-            public class Card
-            {
-                public string first6 { get; set; }
-                public string last4 { get; set; }
-                public string expiry_month { get; set; }
-                public string expiry_year { get; set; }
-                public string card_type { get; set; }
-            }
-
-            public string id { get; set; }
-            public string type { get; set; }
-            public string saved { get; set; }
-            public Card card { get; set; }
-            public string issuer_country { get; set; }
-            public string issuer_name { get; set; }
-
-
-
-        }
-        /// <summary>
-        /// id платежа
-        /// </summary>
-        public string id { get; set; }
-
-
-        /// <summary>
-        /// Статус платежа
-        /// </summary>
-        public string status { get; set; }
-
-        /// <summary>
-        /// Оплачен
-        /// </summary>
-        public bool paid { get; set; }
-
-
-
-        /*            public string created_at { get; set; }
-                    public string description { get; set; }
-                    public string expires_at { get; set; }
-
-
-                    public CardData payment_method { get; set; }
-                    public string title { get; set; }*/
-    }
-
-    public class PayM
-    {
-        public string type { get; set; }
-
-        public DataObj Object { get; set; }
-    }
-
     public class CardController : Controller
     {
 
@@ -86,9 +27,7 @@ namespace Gift_and_Salary_cards.Controllers
         private readonly IPaymentService paymentService;
         private readonly IComissionService comissionService;
 
-        Client client = new Yandex.Checkout.V3.Client(
-            shopId: "828374",
-            secretKey: "test_Lflgiiq9CzEnOmi5Rzzj8TYYidssSxirAEJ1ikrmeDI");
+
 
         public CardController(IPaymentService paymentService, IUKassaServicePayout ukassaServicePayout, UserManager<User> userManager, IUkassaServicePayment ukassaServicePayment, IComissionService comissionService)
         {
@@ -185,7 +124,7 @@ namespace Gift_and_Salary_cards.Controllers
                         MoneyPayEmployee = model.moneyPay,
                         PhoneNumberEmp = model.PhoneNumber,
                         PostcodeEmp = model.postcode,
-                        BankCardPayout = new Models.DataBase.BankCardPayout()
+                        CardBank = new Models.DataBase.CardBank()
                         {
                             NumberCard = model.bankCardNumber
                         }
@@ -212,98 +151,6 @@ namespace Gift_and_Salary_cards.Controllers
 
 
 
-        public IActionResult confirm([FromBody]PayM model)
-        {
-            //var serializer = new JsonSerializer();
-            //serializer.Deserialize(Request.Body);
-            //JsonConvert.deser(Request.Body);
-
-
-
-            try
-            {
-                string text = $"{DateTime.Now}) {model.Object?.id}; {model.Object?.paid}; {model.Object?.status}";
-
-
-                System.IO.File.AppendAllText("__log.txt", text + "\n");
-            }
-            catch (Exception ex)
-            {
-                System.IO.File.AppendAllText("__log.txt", $"{DateTime.Now}) {ex.Message}" + "\n");
-
-            }
-
-
-            //// запись в файл
-            //using (FileStream fstream = new FileStream($"__note.txt", FileMode.OpenOrCreate))
-            //{
-            //    // преобразуем строку в байты
-            //    byte[] array = System.Text.Encoding.Default.GetBytes(text);
-            //    // запись массива байтов в файл
-            //    fstream.Write(array, 0, array.Length);
-
-                
-            //}
-
-            return Ok();
-        }
-
-
-        [HttpGet]
-        public IActionResult Test()
-        {
-
-            // 1. Создайте платеж и получите ссылку для оплаты
-            var newPayment = new NewPayment
-            {                
-                Amount = new Amount { Value = 2000.00m, Currency = "RUB" },
-                Confirmation = new Confirmation
-                {
-                    Type = ConfirmationType.Redirect,                    
-                    ReturnUrl = "http://localhost/thankyou?idpayment=fasfd"
-                },
-                Description = "Оплата заказа №2135 для fasgetz@yandex.ru",
-                Capture = true,                
-                Receipt = new Receipt()
-                {                    
-                    Email = "thefasgetz@yandex.ru",
-                    Phone = "79629007965",
-                    Items = new System.Collections.Generic.List<ReceiptItem>()
-                    {
-                        new ReceiptItem()
-                        {
-                            Amount = new Amount()
-                            {
-                                Currency = "RUB",
-                                Value = 1000
-                            },
-                            Description = "Товар такой-то под артикулом 2013",
-                            Quantity = 2,
-                            VatCode = VatCode.NoVat
-                        }
-                    }
-                }
-            };
-
-
-            Payment payment = null;
-
-            try
-            {
-                payment = client.CreatePayment(newPayment);
-            }
-            catch (Exception ex)
-            {
-                string asdf = "adsfsadf";
-            }
-
-
-            //// 2. Перенаправьте пользователя на страницу оплаты
-            string url = payment.Confirmation.ConfirmationUrl;
-
-            return Redirect(url);
-
-        }
 
 
     }

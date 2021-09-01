@@ -35,8 +35,8 @@ namespace Gift_and_Salary_cards.Models.DataBase
         public string PostcodeEmp { get; set; }
 
         public virtual ComissionService IdComissionNavigation { get; set; }
-        public virtual AccountBankStore AccountBankStore { get; set; }
-        public virtual BankCardPayout BankCardPayout { get; set; }
+        public virtual BankStoreAccount BankStoreAccount { get; set; }
+        public virtual CardBank CardBank { get; set; }
         public virtual Payout Payout { get; set; }
         public virtual ICollection<CheckPayment> CheckPayments { get; set; }
         public virtual ICollection<PaymentStatus> PaymentStatuses { get; set; }

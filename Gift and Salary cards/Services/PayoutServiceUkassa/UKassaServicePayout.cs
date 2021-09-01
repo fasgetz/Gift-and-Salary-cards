@@ -1,4 +1,5 @@
-﻿using Gift_and_Salary_cards.Models.ServiceModels;
+﻿using Gift_and_Salary_cards.Models.DataBase;
+using Gift_and_Salary_cards.Models.ServiceModels;
 using Microsoft.Extensions.Configuration;
 using RestSharp;
 using System;
@@ -46,6 +47,9 @@ namespace Gift_and_Salary_cards.Services
 
             return null;
         }
+
+
+
 
 
     }

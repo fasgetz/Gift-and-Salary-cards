@@ -1,12 +1,17 @@
 ﻿using Gift_and_Salary_cards.Models.DataBase;
 using Gift_and_Salary_cards.Models.Identity;
+using Gift_and_Salary_cards.Models.ServiceModels;
 using Gift_and_Salary_cards.Models.ViewModels;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Yandex.Checkout.V3;
+using static Gift_and_Salary_cards.Models.ServiceModels.ResponseRecieptUkassa;
 
 namespace Gift_and_Salary_cards.Services
 {
@@ -23,12 +28,6 @@ namespace Gift_and_Salary_cards.Services
 
         private readonly IConfiguration config;
 
-        /// <summary>
-        /// Контекст базы данных
-        /// </summary>
-        private readonly GiftCardsContext db;
-
-
         public UKassaServicePayment(IConfiguration config)
         {
             this.config = config;
@@ -39,6 +38,44 @@ namespace Gift_and_Salary_cards.Services
 
             // Инициализируем клиент
             client = new Yandex.Checkout.V3.Client(shopId: shopId, secretKey: secretKey);
+        }
+
+        /// <summary>
+        /// Получить список чеков для платежа
+        /// </summary>
+        /// <param name="payment_id">Айди платежа в юкассе</param>
+        /// <returns>Список чеков</returns>
+        public async Task<IEnumerable<RecieptUkassa>> getReciepts(string payment_id)
+        {
+            // Биндинги
+            var secretKey = config.GetValue<string>("ukassaSettings:paymentSettings:secretKey");
+            var shopId = config.GetValue<string>("ukassaSettings:paymentSettings:shopId");
+
+            using (var httpClient = new HttpClient())
+            {
+                using (var requests = new HttpRequestMessage(new HttpMethod("GET"), "https://api.yookassa.ru/v3/receipts?payment_id=" + payment_id))
+                {
+                    var base64authorizations = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{shopId}:{secretKey}"));
+                    requests.Headers.TryAddWithoutValidation("Authorization", $"Basic {base64authorizations}");
+
+                    var responses = await httpClient.SendAsync(requests);
+
+                    // Если ответ успешный, то в JSON
+                    if (responses.IsSuccessStatusCode)
+                    {
+                        var data = await responses.Content.ReadAsStringAsync();
+
+
+                        var obj = JsonConvert.DeserializeObject<ResponseRecieptUkassa>(data);
+
+
+                        return obj.items;
+                    }
+                    
+                }
+            }
+
+            return null;
         }
 
 
@@ -87,6 +124,19 @@ namespace Gift_and_Salary_cards.Services
 
             return payment;
 
+        }
+
+
+        /// <summary>
+        /// Получить платеж по айди
+        /// </summary>
+        /// <param name="id_payment">Айди платежа</param>
+        /// <returns>Возвращает платеж</returns>
+        public Yandex.Checkout.V3.Payment getPayment(string id_payment)
+        {
+            var payment = client.GetPayment(id_payment);
+
+            return payment;
         }
     }
 }

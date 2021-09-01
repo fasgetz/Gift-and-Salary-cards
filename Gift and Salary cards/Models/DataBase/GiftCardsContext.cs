@@ -17,8 +17,8 @@ namespace Gift_and_Salary_cards.Models.DataBase
         {
         }
 
-        public virtual DbSet<AccountBankStore> AccountBankStores { get; set; }
-        public virtual DbSet<BankCardPayout> BankCardPayouts { get; set; }
+        public virtual DbSet<BankStoreAccount> BankStoreAccounts { get; set; }
+        public virtual DbSet<CardBank> CardBanks { get; set; }
         public virtual DbSet<CheckPayment> CheckPayments { get; set; }
         public virtual DbSet<ComissionService> ComissionServices { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
@@ -34,7 +34,8 @@ namespace Gift_and_Salary_cards.Models.DataBase
         {
             if (!optionsBuilder.IsConfigured)
             {
-
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=tcp: 192.168.1.66, 1433;Database=GiftCards;Trusted_Connection=False;MultipleActiveResultSets=false;User ID=fasgetz;Password=andrey061");
             }
         }
 
@@ -42,12 +43,11 @@ namespace Gift_and_Salary_cards.Models.DataBase
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Cyrillic_General_CI_AS");
 
-            modelBuilder.Entity<AccountBankStore>(entity =>
+            modelBuilder.Entity<BankStoreAccount>(entity =>
             {
-                entity.ToTable("AccountBankStore");
+                entity.ToTable("BankStoreAccount");
 
-                entity.HasIndex(e => e.IdPayment, "IX_AccountBankStore")
-                    .IsUnique();
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.BankBicName).HasMaxLength(9);
 
@@ -57,27 +57,26 @@ namespace Gift_and_Salary_cards.Models.DataBase
                     .HasMaxLength(100)
                     .HasColumnName("payment_purpose");
 
-                entity.HasOne(d => d.IdPaymentNavigation)
-                    .WithOne(p => p.AccountBankStore)
-                    .HasForeignKey<AccountBankStore>(d => d.IdPayment)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK_AccountBankStore_Payment");
+                entity.HasOne(d => d.IdNavigation)
+                    .WithOne(p => p.BankStoreAccount)
+                    .HasForeignKey<BankStoreAccount>(d => d.Id)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_BankStoreAccount_Payment");
             });
 
-            modelBuilder.Entity<BankCardPayout>(entity =>
+            modelBuilder.Entity<CardBank>(entity =>
             {
-                entity.ToTable("BankCardPayout");
+                entity.ToTable("CardBank");
 
-                entity.HasIndex(e => e.IdPayment, "IX_BankCardPayout")
-                    .IsUnique();
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.NumberCard).HasMaxLength(16);
 
-                entity.HasOne(d => d.IdPaymentNavigation)
-                    .WithOne(p => p.BankCardPayout)
-                    .HasForeignKey<BankCardPayout>(d => d.IdPayment)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK_BankCardPayout_Payment");
+                entity.HasOne(d => d.IdNavigation)
+                    .WithOne(p => p.CardBank)
+                    .HasForeignKey<CardBank>(d => d.Id)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CardBank_Payment");
             });
 
             modelBuilder.Entity<CheckPayment>(entity =>
@@ -154,9 +153,7 @@ namespace Gift_and_Salary_cards.Models.DataBase
                     .IsRequired()
                     .HasMaxLength(10);
 
-                entity.Property(e => e.SurnameEmployee)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.SurnameEmployee).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Payment>(entity =>

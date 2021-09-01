@@ -5,12 +5,11 @@ using System.Collections.Generic;
 
 namespace Gift_and_Salary_cards.Models.DataBase
 {
-    public partial class BankCardPayout
+    public partial class CardBank
     {
         public int Id { get; set; }
         public string NumberCard { get; set; }
-        public int? IdPayment { get; set; }
 
-        public virtual Payment IdPaymentNavigation { get; set; }
+        public virtual Payment IdNavigation { get; set; }
     }
 }
