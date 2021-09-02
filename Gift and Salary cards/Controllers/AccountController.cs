@@ -1,5 +1,7 @@
 ﻿using Gift_and_Salary_cards.Models.Identity;
 using Gift_and_Salary_cards.Models.ViewModels;
+using Gift_and_Salary_cards.Services.EmailServiceAccount;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,11 +15,13 @@ namespace Gift_and_Salary_cards.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        readonly IEmailServiceAccount emailService;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IEmailServiceAccount emailService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            this.emailService = emailService;
         }
 
         /// <summary>
@@ -43,6 +47,18 @@ namespace Gift_and_Salary_cards.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = await _userManager.FindByNameAsync(model.Email);
+
+                if (user != null)
+                {
+                    // проверяем, подтвержден ли email
+                    if (!await _userManager.IsEmailConfirmedAsync(user))
+                    {
+                        ModelState.AddModelError(string.Empty, "Вы не подтвердили свой email");
+                        return View(model);
+                    }
+                }
+
                 var result =
                     await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
 
@@ -92,6 +108,39 @@ namespace Gift_and_Salary_cards.Controllers
             return View();
         }
 
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail(string userId, string code)
+        {
+            if (userId == null || code == null)
+            {
+                return View("Error");
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                return View("Error");
+            }
+
+            var result = await _userManager.ConfirmEmailAsync(user, code);
+
+            if (result.Succeeded)
+            {
+
+
+                return RedirectToAction("SuccessConfirmation", "Home");
+            }
+            else
+            {
+                return View("Error");
+            }
+                
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -107,9 +156,14 @@ namespace Gift_and_Salary_cards.Controllers
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
 
-                    // установка куки
-                    await _signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Home");
+
+                    await emailService.SendEmailAsync(model.Email, "Подтвердите регистрацию",
+                        $"Подтвердите регистрацию, <a href='{callbackUrl}'>перейдя по ссылке</a>", "Для завершения регистрации перейдите по ссылке, указанной в письме");
+
+                    return RedirectToAction("ConfirmationUser", "Account");
+                    //// установка куки
+                    //await _signInManager.SignInAsync(user, false);
+                    //return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -120,6 +174,18 @@ namespace Gift_and_Salary_cards.Controllers
                 }
             }
             return View(model);
+        }
+
+
+
+        public IActionResult ConfirmationUser()
+        {
+            return View();
+        }
+
+        public IActionResult SuccessConfirmation()
+        {
+            return View();
         }
     }
 }

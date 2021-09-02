@@ -790,3 +790,5 @@
 2021-09-02 16:31:31.0599 Info Adding target FileTarget(Name=allfile)
 2021-09-02 16:31:31.0782 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
 2021-09-02 16:31:31.1551 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 16:46:35.4046 Info Message Template Auto Format enabled
+2021-09-02 16:46:35.5092 Info Loading assembly: NLog.Web.AspNetCore
