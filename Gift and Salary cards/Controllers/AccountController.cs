@@ -131,7 +131,7 @@ namespace Gift_and_Salary_cards.Controllers
             {
 
 
-                return RedirectToAction("SuccessConfirmation", "Home");
+                return RedirectToAction("SuccessConfirmation", "Account");
             }
             else
             {
