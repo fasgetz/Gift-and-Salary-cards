@@ -3,6 +3,7 @@ using Gift_and_Salary_cards.Models.DataBase;
 using Gift_and_Salary_cards.Models.Identity;
 using Gift_and_Salary_cards.Services;
 using Gift_and_Salary_cards.Services.ComissionService;
+using Gift_and_Salary_cards.Services.EmailServiceAccount;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -53,6 +54,7 @@ namespace Gift_and_Salary_cards
             services.AddScoped<IUkassaServicePayment, UKassaServicePayment>();
             services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<IComissionService, Gift_and_Salary_cards.Services.ComissionService.ComissionService>();
+            services.AddScoped<IEmailServiceAccount, EmailServiceAccount>();
 
             services.AddControllersWithViews();
         }
