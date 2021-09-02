@@ -13,6 +13,15 @@ namespace Gift_and_Salary_cards.Models.ControllerModels
     {
         public class CardData
         {
+            public class Amount
+            {
+                public string value { get; set; }
+                public string currency { get; set; }
+            }
+
+            public Amount income_amount { get; set; }
+
+
             /// <summary>
             /// id платежа
             /// </summary>

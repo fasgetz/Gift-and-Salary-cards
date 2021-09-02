@@ -828,3 +828,13 @@
 2021-09-02 22:22:01.3475 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.11.13229. Product version: 4.7.11+33ed3a9f86277651e93ddf39cda64a046a06778b. GlobalAssemblyCache: False
 2021-09-02 22:22:03.7783 Info AppDomain Shutting down. Logger closing...
 2021-09-02 22:22:03.8069 Info Logger has been shut down.
+2021-09-02 22:27:33.7616 Info Message Template Auto Format enabled
+2021-09-02 22:27:33.8151 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 22:27:33.9306 Info Adding target FileTarget(Name=allfile)
+2021-09-02 22:27:33.9504 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 22:27:34.0221 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 22:39:34.5307 Info Message Template Auto Format enabled
+2021-09-02 22:39:34.5628 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 22:39:34.6933 Info Adding target FileTarget(Name=allfile)
+2021-09-02 22:39:34.7149 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 22:39:34.7994 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config

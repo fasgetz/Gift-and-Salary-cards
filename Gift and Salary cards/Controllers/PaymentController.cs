@@ -74,6 +74,11 @@ namespace Gift_and_Salary_cards.Controllers
                 // Если платежка оплачена и статус пришедшего уведомления == true, то добавить этот статус в БД
                 if (payment.Paid == true)
                 {
+
+                    // Добавляем сколько денег начислится на расчетный счет и процент юмани
+                    payOnDb.MoneyToCheckingAccount = Convert.ToDecimal(model.Object.income_amount.value.Replace('.', ','));
+                    payOnDb.UMoneyTariff = 100 - (payOnDb.MoneyToCheckingAccount / payment.Amount.Value * 100);
+
                     payOnDb.PaymentStatuses.Add(new Models.DataBase.PaymentStatus()
                     {
                         StatusPaymentId = 2,
@@ -120,7 +125,7 @@ namespace Gift_and_Salary_cards.Controllers
 
                                 payOnDb.CheckPayments.Add(new Models.DataBase.CheckPayment()
                                 {
-                                    DateRegistered = reciept.registered_at,
+                                    DateRegistered = reciept.registered_at.AddHours(3),
                                     FiscalAccumulatorNumber = reciept.fiscal_storage_number,
                                     FiscalDocumentNumber = reciept.fiscal_document_number,
                                     FiscalAttribute = reciept.fiscal_attribute,
@@ -139,7 +144,7 @@ namespace Gift_and_Salary_cards.Controllers
                                 str.Append($"<p>Оплаченная сумма {payOnDb.SumPayment}</p>");
                                 str.Append($"<p>Сумма к зачислению {payOnDb.MoneyPayEmployee}</p>");
                                 str.Append($"<br/><b><p>Чек прихода на {payOnDb.SumPayment}</b></p>");
-                                str.Append($"<p>Дата создания чека {reciept.registered_at}</p>");
+                                str.Append($"<p>Дата создания чека {reciept.registered_at.AddHours(3)}</p>");
                                 str.Append($"<p>Номер фискального документа {reciept.fiscal_document_number}</p>");
                                 str.Append($"<p>Номер фискального накопителя {reciept.fiscal_storage_number}</p>");
                                 str.Append($"<p>Фискальный признак {reciept.fiscal_attribute}</p>");
