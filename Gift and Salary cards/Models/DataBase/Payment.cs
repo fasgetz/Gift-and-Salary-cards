@@ -34,6 +34,17 @@ namespace Gift_and_Salary_cards.Models.DataBase
         public decimal MoneyPayEmployee { get; set; }
         public string PostcodeEmp { get; set; }
 
+
+        /// <summary>
+        /// Выплаты на расчетный счет с учетом процента
+        /// </summary>
+        public decimal? MoneyToCheckingAccount { get; set; }
+
+        /// <summary>
+        /// Тариф юмани
+        /// </summary>
+        public decimal? UMoneyTariff { get; set; }
+
         public virtual ComissionService IdComissionNavigation { get; set; }
         public virtual BankStoreAccount BankStoreAccount { get; set; }
         public virtual CardBank CardBank { get; set; }

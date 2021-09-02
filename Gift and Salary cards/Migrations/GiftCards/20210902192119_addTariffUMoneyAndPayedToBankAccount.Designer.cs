@@ -4,14 +4,16 @@ using Gift_and_Salary_cards.Models.DataBase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Gift_and_Salary_cards.Migrations.GiftCards
 {
     [DbContext(typeof(GiftCardsContext))]
-    partial class GiftCardsContextModelSnapshot : ModelSnapshot
+    [Migration("20210902192119_addTariffUMoneyAndPayedToBankAccount")]
+    partial class addTariffUMoneyAndPayedToBankAccount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -230,7 +232,7 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
                         .HasColumnType("money")
                         .HasColumnName("moneyPayEmployee");
 
-                    b.Property<decimal?>("MoneyToCheckingAccount")
+                    b.Property<decimal>("MoneyToCheckingAccount")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("NameEmp")
@@ -263,7 +265,7 @@ namespace Gift_and_Salary_cards.Migrations.GiftCards
                     b.Property<string>("SurnameEmp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("UMoneyTariff")
+                    b.Property<decimal>("UMoneyTariff")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
