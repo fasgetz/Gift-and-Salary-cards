@@ -1,13 +1,15 @@
 ﻿using Gift_and_Salary_cards.Models.ControllerModels;
 using Gift_and_Salary_cards.Models.DataBase;
-using Gift_and_Salary_cards.Models.ViewModels;
 using Gift_and_Salary_cards.Services;
-using Microsoft.AspNetCore.Authorization;
+using Gift_and_Salary_cards.Services.EmailServiceAccount;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
+using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Gift_and_Salary_cards.Controllers
@@ -17,71 +19,19 @@ namespace Gift_and_Salary_cards.Controllers
 
     public class PaymentController : Controller
     {
-
+        readonly ILogger<PaymentController> logger;
         private readonly IUkassaServicePayment ukassaServicePayment;
         private readonly IPaymentService paymentService;
-        
+        readonly IEmailServiceAccount emailService;
+        readonly IServiceScopeFactory serviceScopeFactory;
 
-        public PaymentController(IUkassaServicePayment ukassaServicePayment, IPaymentService paymentService)
+        public PaymentController(ILogger<PaymentController> logger, IUkassaServicePayment ukassaServicePayment, IPaymentService paymentService, IEmailServiceAccount emailService, IServiceScopeFactory serviceScopeFactory)
         {
+            this.logger = logger;
             this.ukassaServicePayment = ukassaServicePayment;
             this.paymentService = paymentService;
-        }
-
-
-
-        public async Task<IActionResult> test()
-        {
-
-            // Иначе если платежка существующая, то находим эту платежку в базе данных
-            var payOnDb = paymentService.getPaymentUkassaId("28c154cc-000f-5000-8000-12bf6ff79b8a");
-
-
-            var data = payOnDb.PaymentStatuses.Where(i => i.StatusPaymentId == 2 || i.StatusPaymentId == 3).ToList();
-
-
-            payOnDb.PaymentStatuses.Add(new Models.DataBase.PaymentStatus()
-            {
-                StatusPaymentId = 2,
-                DateStatus = DateTime.Now
-            });
-
-            // Теперь необходимо получить чек с юкассы и сохранить в БД
-            var reciepts = await ukassaServicePayment.getReciepts(payOnDb.IdUkassa);
-
-            // Если получили чек и он один, то добавить чек в бд
-            if (reciepts != null && reciepts.Count() == 1)
-            {
-
-                var reciept = reciepts.FirstOrDefault();
-
-                if (payOnDb.CheckPayments == null)
-                {
-                    payOnDb.CheckPayments = new List<CheckPayment>();
-                }
-
-                payOnDb.CheckPayments.Add(new Models.DataBase.CheckPayment()
-                {
-                    DateRegistered = reciept.registered_at,
-                    FiscalAccumulatorNumber = reciept.fiscal_storage_number,
-                    FiscalDocumentNumber = reciept.fiscal_document_number,
-                    FiscalAttribute = reciept.fiscal_attribute,
-                    Status = reciept.status,
-                    IdCheckInUkassa = reciept.payment_id,
-                    IdCheckCloudCash = reciept.fiscal_provider_id
-                });
-            }
-
-
-            // Теперь необходимо создать платеж
-            bool addedPayout = paymentService.createPayout(payOnDb);
-
-
-            // Обновляем информацию в БД
-            bool updated = paymentService.updatePayment(payOnDb);
-
-
-            return Ok();
+            this.emailService = emailService;
+            this.serviceScopeFactory = serviceScopeFactory;
         }
 
         /// <summary>
@@ -90,18 +40,6 @@ namespace Gift_and_Salary_cards.Controllers
         /// <returns></returns>
         public IActionResult paymentNotification([FromBody]NotificationPaymentModel model)
         {
-            try
-            {
-                string text = $"Новая платежка | {DateTime.Now}) {model.Object?.id}; {model.Object?.paid}; {model.Object?.status}";
-
-
-                System.IO.File.AppendAllText("__log.txt", text + "\n");
-            }
-            catch (Exception ex)
-            {
-                System.IO.File.AppendAllText("__log.txt", $"{DateTime.Now}) {ex.Message}" + "\n");
-
-            }
 
             // Ищем платеж на юкассе
             var payment = ukassaServicePayment.getPayment(model.Object.id);
@@ -109,13 +47,11 @@ namespace Gift_and_Salary_cards.Controllers
             // Если платежку отправили несуществующую, то вернуть об этом месседж
             if (payment == null)
             {
-
-                System.IO.File.AppendAllText("__log.txt", $"{model.Object.id} Платежка не найдена в БД" + "\n");
+                logger.LogInformation($"Платежка не найдена в бд №{payment.Id}");
 
                 return BadRequest("Платежка, которую отправили не найдена");
             }
 
-            System.IO.File.AppendAllText("__log.txt", $"{model.Object.id} Платежка найдена в БД" + "\n");
 
             // Иначе если платежка существующая, то находим эту платежку в базе данных
             var payOnDb = paymentService.getPaymentUkassaId(model.Object.id);
@@ -123,7 +59,7 @@ namespace Gift_and_Salary_cards.Controllers
             // Если платежку не нашли, то ошибка
             if (payOnDb == null)
             {
-                System.IO.File.AppendAllText("__log.txt", "Платежка не найдена" + "\n");
+                logger.LogInformation($"Платежка не найдена {payOnDb.Id}");
             }
 
 
@@ -147,48 +83,95 @@ namespace Gift_and_Salary_cards.Controllers
                     // Обновляем информацию в БД
                     bool updated = paymentService.updatePayment(payOnDb);
 
-                    System.IO.File.AppendAllText("__log.txt", "Добавляем успешную платежку в БД" + "\n");
-
-                    // Теперь необходимо получить чек с юкассы и сохранить в БД
-                    var reciepts = ukassaServicePayment.getReciepts(payOnDb.IdUkassa).Result;
-
-                    // Если получили чек и он один, то добавить чек в бд
-                    if (reciepts != null && reciepts.Count() == 1)
-                    {
-
-                        var reciept = reciepts.FirstOrDefault();
-
-                        if (payOnDb.CheckPayments == null)
-                        {
-                            payOnDb.CheckPayments = new List<CheckPayment>();
-                        }
-
-                        payOnDb.CheckPayments.Add(new Models.DataBase.CheckPayment()
-                        {
-                            DateRegistered = reciept.registered_at,
-                            FiscalAccumulatorNumber = reciept.fiscal_storage_number,
-                            FiscalDocumentNumber = reciept.fiscal_document_number,
-                            FiscalAttribute = reciept.fiscal_attribute,
-                            Status = reciept.status,
-                            IdCheckInUkassa = reciept.payment_id,
-                            IdCheckCloudCash = reciept.fiscal_provider_id
-                        });
-                    }
-
+                    logger.LogInformation($"Добавляем успешную платежку в БД {payOnDb.Id}");
 
                     // Теперь необходимо создать платеж
                     bool addedPayout = paymentService.createPayout(payOnDb);
 
 
 
+                    // Отдельно обновляем сессию пользователя
+                    _ = Task.Run(async () =>
+                    {
+
+                        using var scope = serviceScopeFactory.CreateScope();
+                        var ukassaRep = scope.ServiceProvider.GetRequiredService<IUkassaServicePayment>();
+                        var payRep = scope.ServiceProvider.GetRequiredService<IPaymentService>();
+                        var emailServ = scope.ServiceProvider.GetRequiredService<IEmailServiceAccount>();
+
+                        // 10 раз в течении минуты пробуем загрузить инфу о чеках
+                        for (int i = 0; i <= 100; i++)
+                        {
+                            Thread.Sleep(60000);
+
+
+                            // Теперь необходимо получить чек с юкассы и сохранить в БД
+                            var reciepts = await ukassaRep.getReciepts(payOnDb.IdUkassa);
+
+
+                            logger.LogInformation($"Айди платежки {payOnDb.IdUkassa}| Попытка №{i + 1} | Пришло чеков: {reciepts?.Count()}");
+
+                            // Если получили чек и он один, то добавить чек в бд
+                            if (reciepts.FirstOrDefault() != null)
+                            {
+                                var reciept = reciepts.FirstOrDefault();
+
+                                logger.LogInformation($"Добавляем чек №{reciept.id} платежки {payOnDb.IdUkassa}| в БД ");
+
+                                payOnDb.CheckPayments.Add(new Models.DataBase.CheckPayment()
+                                {
+                                    DateRegistered = reciept.registered_at,
+                                    FiscalAccumulatorNumber = reciept.fiscal_storage_number,
+                                    FiscalDocumentNumber = reciept.fiscal_document_number,
+                                    FiscalAttribute = reciept.fiscal_attribute,
+                                    Status = reciept.status,
+                                    IdCheckInUkassa = reciept.payment_id,
+                                    IdCheckCloudCash = reciept.fiscal_provider_id
+                                });
+
+                                payRep.updatePayment(payOnDb);
+
+                                // Формируем сообщение
+                                StringBuilder str = new StringBuilder();
+                                str.Append("<h3>Платеж выполнен успешно!</h3>");
+                                str.Append($"<p>Заказ №{payOnDb.Id}</p>");
+                                str.Append($"<p>Дата и время №{payOnDb.PaymentStatuses.OrderByDescending(i => i.DateStatus).FirstOrDefault().DateStatus}</p>");
+                                str.Append($"<p>Оплаченная сумма {payOnDb.SumPayment}</p>");
+                                str.Append($"<p>Сумма к зачислению {payOnDb.MoneyPayEmployee}</p>");
+                                str.Append($"<br/><b><p>Чек прихода на {payOnDb.SumPayment}</b></p>");
+                                str.Append($"<p>Дата создания чека {reciept.registered_at}</p>");
+                                str.Append($"<p>Номер фискального документа {reciept.fiscal_document_number}</p>");
+                                str.Append($"<p>Номер фискального накопителя {reciept.fiscal_storage_number}</p>");
+                                str.Append($"<p>Фискальный признак {reciept.fiscal_attribute}</p>");
+
+
+                                // Теперь необходимо сделать рассылку на email о чеке
+                                await emailServ.SendEmailAsync(payOnDb.PayerEmail, $"Информация о платеже №{payOnDb.Id}", str.ToString(), $"Ваш платеж №{payOnDb.Id} успешно произведен!");
+                                
+                                // Теперь необходимо сделать дубликат-рассылку на email о чеке
+                                await emailServ.SendEmailAsync("fasgetz@yandex.ru", $"Дубликат-Информация о платеже №{payOnDb.Id}", str.ToString(), $"Ваш платеж №{payOnDb.Id} успешно произведен!");
+
+                                break;
+                            }
+                            else
+                            {
+                                logger.LogInformation($"Чек платежки {payOnDb.IdUkassa} добавить не можем, т.к. его нету на сервере юкассы");
+                            }
+
+                            logger.LogInformation($"Выход из цикла, т.к. чек добавлен");
+                        }
+                        
+
+
+                    });
 
 
                 }
                 // Иначе если платежка не оплачена, то внести соответствующую информацию
                 else if (payment.Paid == false)
                 {
+                    logger.LogInformation($"Платежку неудачно оплаченную платежку №{payment.Id} в бд");
 
-                    System.IO.File.AppendAllText("__log.txt", "Добавляем неуспешную платежку в БД" + "\n");
 
                     payOnDb.PaymentStatuses.Add(new Models.DataBase.PaymentStatus()
                     {
@@ -198,6 +181,21 @@ namespace Gift_and_Salary_cards.Controllers
 
                     // Обновляем информацию в БД
                     bool updated = paymentService.updatePayment(payOnDb);
+
+
+                    // Формируем сообщение
+                    StringBuilder str = new StringBuilder();
+                    str.Append("<h3>Оплату не удалось произвести! Повторите попытку</h3>");
+                    str.Append($"<p>Заказ №{payOnDb.Id}</p>");
+                    str.Append($"<p>Дата и время №{payOnDb.PaymentStatuses.OrderByDescending(i => i.DateStatus).FirstOrDefault().DateStatus}</p>");
+                    str.Append($"<p>Сумма к оплате {payOnDb.SumPayment}</p>");
+                    str.Append($"<p>Сумма к зачислению {payOnDb.MoneyPayEmployee}</p>");
+
+                    // Теперь необходимо сделать рассылку на email о чеке
+                    emailService.SendEmailAsync(payOnDb.PayerEmail, $"Информация о платеже №{payOnDb.Id}", str.ToString(), $"Ваш платеж №{payOnDb.Id} выполнить не удалось!");
+
+                    // Теперь необходимо сделать дубликат-рассылку на email о чеке
+                    emailService.SendEmailAsync("fasgetz@yandex.ru", $"Дубликат-Информация о платеже №{payOnDb.Id}", str.ToString(), $"Ваш платеж №{payOnDb.Id} выполнить не удалось!");
                 }
 
                 
@@ -205,8 +203,7 @@ namespace Gift_and_Salary_cards.Controllers
             }
             else
             {
-                System.IO.File.AppendAllText("__log.txt", "Еррор, что платежка в БД уже добавлена" + "\n");
-
+                logger.LogError($"Платежка {payOnDb.IdUkassa} уже добавлена в БД");
 
                 return BadRequest("Платежка уже добавлена в БД");
             }

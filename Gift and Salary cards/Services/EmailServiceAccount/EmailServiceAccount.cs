@@ -41,7 +41,6 @@ namespace Gift_and_Salary_cards.Services.EmailServiceAccount
             var mess = File.ReadAllText("wwwroot/htmlTemplates/template.html");
             mess = mess.Replace("messageTo", message);
             mess = mess.Replace("messageSubject", subject);
-
             mess = mess.Replace("descriptionMessage", description);
 
             // SMTP YANDEX

@@ -650,3 +650,143 @@
 2021-09-01 17:18:57.8870 Info Adding target FileTarget(Name=allfile)
 2021-09-01 17:18:57.9061 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
 2021-09-01 17:18:57.9660 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 13:26:06.3027 Info Message Template Auto Format enabled
+2021-09-02 13:26:06.3299 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 13:26:06.4720 Info Adding target FileTarget(Name=allfile)
+2021-09-02 13:26:06.4910 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 13:26:06.5699 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 13:44:09.1868 Info Message Template Auto Format enabled
+2021-09-02 13:44:09.2132 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 13:44:09.3340 Info Adding target FileTarget(Name=allfile)
+2021-09-02 13:44:09.3517 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 13:44:09.4108 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 13:45:10.4753 Info Message Template Auto Format enabled
+2021-09-02 13:45:10.4990 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 13:45:10.6016 Info Adding target FileTarget(Name=allfile)
+2021-09-02 13:45:10.6176 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 13:45:10.6721 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 13:45:33.9076 Info Message Template Auto Format enabled
+2021-09-02 13:45:33.9386 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 13:45:34.1378 Info Adding target FileTarget(Name=allfile)
+2021-09-02 13:45:34.1578 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 13:45:34.2319 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 13:47:39.5099 Info Message Template Auto Format enabled
+2021-09-02 13:47:39.5413 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 13:47:39.7172 Info Adding target FileTarget(Name=allfile)
+2021-09-02 13:47:39.7405 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 13:47:39.8253 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 14:01:58.4001 Info Message Template Auto Format enabled
+2021-09-02 14:01:58.4378 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 14:01:58.6181 Info Adding target FileTarget(Name=allfile)
+2021-09-02 14:01:58.6437 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 14:01:58.7305 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 14:03:49.7078 Info Message Template Auto Format enabled
+2021-09-02 14:03:49.7352 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 14:03:49.8583 Info Adding target FileTarget(Name=allfile)
+2021-09-02 14:03:49.8755 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 14:03:49.9353 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 14:07:44.6300 Info Message Template Auto Format enabled
+2021-09-02 14:07:44.6559 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 14:07:44.8059 Info Adding target FileTarget(Name=allfile)
+2021-09-02 14:07:44.8267 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 14:07:44.8897 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 14:47:34.0036 Info Message Template Auto Format enabled
+2021-09-02 14:47:34.0367 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 14:47:34.1799 Info Adding target FileTarget(Name=allfile)
+2021-09-02 14:47:34.2029 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 14:47:34.2708 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 14:51:39.5871 Info Message Template Auto Format enabled
+2021-09-02 14:51:39.6171 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 14:51:39.7528 Info Adding target FileTarget(Name=allfile)
+2021-09-02 14:51:39.7704 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 14:51:39.8403 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 14:52:27.1379 Info Message Template Auto Format enabled
+2021-09-02 14:52:27.1669 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 14:52:27.2937 Info Adding target FileTarget(Name=allfile)
+2021-09-02 14:52:27.3140 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 14:52:27.3800 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 14:55:13.0990 Info Message Template Auto Format enabled
+2021-09-02 14:55:13.1355 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 14:55:13.2905 Info Adding target FileTarget(Name=allfile)
+2021-09-02 14:55:13.3106 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 14:55:13.3884 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 14:57:10.0443 Info Message Template Auto Format enabled
+2021-09-02 14:57:10.0731 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 14:57:10.2350 Info Adding target FileTarget(Name=allfile)
+2021-09-02 14:57:10.2574 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 14:57:10.3323 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 15:56:26.3367 Info Message Template Auto Format enabled
+2021-09-02 15:56:26.3931 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 15:56:26.5149 Info Adding target FileTarget(Name=allfile)
+2021-09-02 15:56:26.5332 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 15:56:26.5973 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 15:57:42.9940 Info Message Template Auto Format enabled
+2021-09-02 15:57:43.0226 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 15:57:43.1643 Info Adding target FileTarget(Name=allfile)
+2021-09-02 15:57:43.1846 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 15:57:43.3418 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 15:58:30.7775 Info Message Template Auto Format enabled
+2021-09-02 15:58:30.8090 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 15:58:30.9700 Info Adding target FileTarget(Name=allfile)
+2021-09-02 15:58:30.9870 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 15:58:31.0507 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 15:59:54.6491 Info Message Template Auto Format enabled
+2021-09-02 15:59:54.6870 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 15:59:54.8758 Info Adding target FileTarget(Name=allfile)
+2021-09-02 15:59:54.9040 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 15:59:54.9938 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 16:00:33.3944 Info Message Template Auto Format enabled
+2021-09-02 16:00:33.4430 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 16:00:33.6816 Info Adding target FileTarget(Name=allfile)
+2021-09-02 16:00:33.7162 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 16:00:33.8323 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 16:00:46.3716 Info Message Template Auto Format enabled
+2021-09-02 16:00:46.3990 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 16:00:46.5447 Info Adding target FileTarget(Name=allfile)
+2021-09-02 16:00:46.5629 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 16:00:46.6277 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 16:01:26.1243 Info Message Template Auto Format enabled
+2021-09-02 16:01:26.1520 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 16:01:26.2744 Info Adding target FileTarget(Name=allfile)
+2021-09-02 16:01:26.2941 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 16:01:26.3553 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 16:02:20.0569 Info Message Template Auto Format enabled
+2021-09-02 16:02:20.1124 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 16:02:20.2337 Info Adding target FileTarget(Name=allfile)
+2021-09-02 16:02:20.2524 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 16:02:20.3109 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 16:03:06.9670 Info Message Template Auto Format enabled
+2021-09-02 16:03:06.9961 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 16:03:07.1873 Info Adding target FileTarget(Name=allfile)
+2021-09-02 16:03:07.2090 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 16:03:07.2820 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 16:03:58.2884 Info Message Template Auto Format enabled
+2021-09-02 16:03:58.3257 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 16:03:58.4958 Info Adding target FileTarget(Name=allfile)
+2021-09-02 16:03:58.5145 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 16:03:58.5789 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 16:04:35.4239 Info Message Template Auto Format enabled
+2021-09-02 16:04:35.4530 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 16:04:35.5857 Info Adding target FileTarget(Name=allfile)
+2021-09-02 16:04:35.6055 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 16:04:35.6895 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 16:07:38.1126 Info Message Template Auto Format enabled
+2021-09-02 16:07:38.1378 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 16:07:38.2865 Info Adding target FileTarget(Name=allfile)
+2021-09-02 16:07:38.3036 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 16:07:38.3643 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 16:09:53.9845 Info Message Template Auto Format enabled
+2021-09-02 16:09:54.0129 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 16:09:54.1329 Info Adding target FileTarget(Name=allfile)
+2021-09-02 16:09:54.1519 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 16:09:54.2114 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 16:18:24.6975 Info Message Template Auto Format enabled
+2021-09-02 16:18:24.7418 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 16:18:24.8750 Info Adding target FileTarget(Name=allfile)
+2021-09-02 16:18:24.8957 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 16:18:24.9693 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
+2021-09-02 16:31:30.8516 Info Message Template Auto Format enabled
+2021-09-02 16:31:30.9057 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-02 16:31:31.0599 Info Adding target FileTarget(Name=allfile)
+2021-09-02 16:31:31.0782 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'ownFile-web' not found for logging rule: *.
+2021-09-02 16:31:31.1551 Info Validating config: TargetNames=allfile, ConfigItems=37, FilePath=C:\Users\Andrew\source\repos\Gift and Salary cards\Gift and Salary cards\bin\Debug\net5.0\nlog.config
