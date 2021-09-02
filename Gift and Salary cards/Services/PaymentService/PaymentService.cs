@@ -2,6 +2,7 @@
 using Gift_and_Salary_cards.Models.Identity;
 using Gift_and_Salary_cards.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,11 @@ namespace Gift_and_Salary_cards.Services
     public class PaymentService : IPaymentService
     {
         private readonly GiftCardsContext db;
+        private readonly IConfiguration config;
 
-        public PaymentService(GiftCardsContext db)
+        public PaymentService(GiftCardsContext db, IConfiguration config)
         {
+            this.config = config;
             this.db = db;
         }
 
@@ -75,6 +78,19 @@ namespace Gift_and_Salary_cards.Services
         /// <returns>Возвращает true, в случае успешного создания выплаты</returns>
         public bool createPayout(Payment payment)
         {
+            // Высчитываем комиссию сервиса для выплат в зависимости от типа платежа
+            decimal comissionService = config.GetValue<decimal>("ukassaSettings:payOutSettings:comissionProcent");
+
+
+            decimal MoneyNeedAccrual = payment.MoneyPayEmployee + (payment.MoneyPayEmployee / 100 * comissionService);
+
+            // Если это оплата на банковскую карту, то необходимо прибать дополнительные затраты
+            if (db.CardBanks.FirstOrDefault(i => i.Id == payment.Id) != null)
+            {
+                MoneyNeedAccrual += config.GetValue<decimal>("ukassaSettings:payOutSettings:InAdditionComission");
+            }
+
+
             Employee emp = new Employee()
             {
                 NameEmployee = payment.NameEmp,
@@ -95,7 +111,8 @@ namespace Gift_and_Salary_cards.Services
                         DateCreate = DateTime.Now,
                         Description = payment.Description,
                         SumToPayoutEmployee = payment.MoneyPayEmployee,
-                        Id = payment.Id
+                        Id = payment.Id,
+                        SumNeedAccrualToAccount = MoneyNeedAccrual
                     }
                 }
 

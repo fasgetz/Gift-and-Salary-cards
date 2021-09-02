@@ -15,7 +15,7 @@
   \******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.esm-bundler.js\");\n\nconst vueApp = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)({\n  data() {\n    return {\n      name: \"Tom\",\n      age: 36,\n      message: 'asd'\n    };\n  }\n\n}).mount('#app');\n\n//# sourceURL=webpack://myapplication/./scripts/Home/main.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.esm-bundler.js\");\n\nconst vueApp = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)({\n  data() {\n    return {\n      currency: 5000\n    };\n  },\n\n  computed: {\n    currencyProcent: function () {\n      // `this` указывает на экземпляр vm\n      return this.currency + this.currency / 100 * 12;\n    }\n  }\n}).mount('#calculator');\n\n//# sourceURL=webpack://myapplication/./scripts/Home/main.js?");
 
 /***/ })
 

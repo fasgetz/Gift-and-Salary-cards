@@ -15,6 +15,12 @@ namespace Gift_and_Salary_cards.Models.DataBase
         public int Id { get; set; }
         public int IdEmployee { get; set; }
         public decimal? SumToPayoutEmployee { get; set; }
+
+        /// <summary>
+        /// Сумма, необходимая для начислений на счет выплат с учетом комиссий
+        /// </summary>
+        public decimal? SumNeedAccrualToAccount { get; set; }
+
         public string Description { get; set; }
         public DateTime? DateCreate { get; set; }
 

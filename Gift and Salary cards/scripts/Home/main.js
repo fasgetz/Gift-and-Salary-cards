@@ -2,6 +2,12 @@
 
 const vueApp = createApp({
     data() {
-        return { name: "Tom", age: 36, message: 'asd' }
+        return { currency: 5000 }
+    },
+    computed: {
+        currencyProcent: function () {
+            // `this` указывает на экземпляр vm
+            return (this.currency + (this.currency / 100 * 12))
+        }
     }
-}).mount('#app');
+}).mount('#calculator');

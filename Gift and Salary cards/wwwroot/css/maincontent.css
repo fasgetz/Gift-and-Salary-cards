@@ -246,3 +246,16 @@ h3 {
     }
 }
 
+
+.calculator {
+    background: white;
+    border-radius: 20px;
+    padding: 30px
+}
+.calculator__payment {
+    font-size: 20px
+}
+
+.calculator .border_calc {
+    border-right: 1px solid #dee2e6 !important;
+}

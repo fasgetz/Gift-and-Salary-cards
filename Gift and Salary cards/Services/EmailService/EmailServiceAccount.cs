@@ -12,7 +12,7 @@ namespace Gift_and_Salary_cards.Services.EmailServiceAccount
     public class EmailServiceAccount : IEmailServiceAccount
     {
 
-        private readonly IConfiguration config;
+        
         private readonly string emailFrom;
         private readonly string emailPassword;
         private readonly string smtpHost;

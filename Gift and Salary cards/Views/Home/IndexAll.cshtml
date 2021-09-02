@@ -46,9 +46,33 @@
 <section class="howuse-block" id="comission-block">
     <div class="container">
         <div class="row mt-3">
-            <h3 class="col-12 text-center">Прайс лист virtcards</h3>
+            <h3 class="text-center mt-3">Прайс-лист</h3>
+            <h5 class="text-center mt-3">Проверьте как формируются цены на выплаты сотрудникам с учетом комиссии в размере <b>12%</b> с помощью калькулятора нашего онлайн сервиса, которая высчитает проценты к выплате</h5>
+            <div id="calculator" class="container calculator mt-3">
+                <div class="row">
+                    <div class="col-12 col-lg-7">
+                        <h5 class="form-label text-center">Необходимо заплатить сотруднику</h5>
+                        <div>
+                            <input step="100" v-model.number="currency" type="range" class="form-range" min="1000" max="60000" name="name" value="5000" />
+                            <div class="text-center calculator__payment text-muted">{{currency}} ₽</div>
+                        </div>
+                    </div>
+                    <div class="col-1 border_calc">
+
+                    </div>
+                    <div class="col-12 col-lg-4 mt-lg-0 mt-3">
+                        <h5 class="form-label text-center">Вы заплатите</h5>
+                        <div class="text-center calculator__payment text-muted">{{currencyProcent}} ₽</div>
+                        <div class="text-center mt-1">Комиссия 12% virtcards = <b>{{currencyProcent - currency}}</b></div>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center mt-5">
+                        <a class="btn btn-success" asp-controller="Card" asp-action="SalaryCard">Перейти к оплате {{currencyProcent}}</a>
+                    </div>
+                </div>
+            </div>
+            <h3 class="col-12 text-center mt-5">Основные условия virtcards</h3>
             <div class="container">
-                <div class="row mt-5 text-center">
+                <div class="row mt-3 text-center">
                     <div class="col-12 col-lg-4">
                         <div class="howuse-block__item m-3 p-3">
                             <h5>Низкие комиссии</h5>
@@ -79,11 +103,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-3">                        
-                        <div class="comission-img">
-                            <img src="~/img/procent.png" alt="Alternate Text" />
-                        </div>
-                    </div>
+                </div>
+            </div>
+            <div class="mt-3 d-flex justify-content-center">
+                <div class="comission-img">
+                    <img src="~/img/procent.png" alt="Alternate Text" />
                 </div>
             </div>
         </div>
@@ -106,7 +130,7 @@
                             </div>
                             <div class="col-8 col-lg-12 text-center">
                                 <h5 class="mt-0 mt-lg-3 item-work__title">Регистрация в системе</h5>
-                                <p class="p-1">Вы регистрируетесь в <a class="about-service__address" asp-controller="Account" asp-action="Register">системе</a> и ожидаете модерации со стороны virtcards</p>
+                                <p class="p-1">Вы регистрируетесь в <a class="about-service__address" asp-controller="Account" asp-action="Register">системе virtcards</a> и подтверждаете свой аккаунт</p>
                             </div>
                         </div>
                     </div>
@@ -125,7 +149,7 @@
                                 <h5 class="mt-0 mt-lg-3 item-work__title">Оформление</h5>
                                 <p class="p-1">
                                     Оформление выплат сотруднику происходит после авторизации на сайте virtcards и
-                                    заполнения банковских данных и персональных данных, на которые будет осуществлена выплата
+                                    заполнения банковских и персональных данных, на которые будет осуществлена выплата, а также суммы выплат с учетом нашей комиссии <b>12%</b>
                                 </p>
                             </div>
                         </div>
@@ -161,7 +185,7 @@
                             <div class="col-8 col-lg-12 text-center">
                                 <h5 class="mt-0 mt-lg-3 item-work__title">Обработка платежа</h5>
                                 <p class="p-1">
-                                    После оплаты, платеж находится в статусе «в обработке». Статусы платежей и данные для формирования отчетности доступны в личном кабинете                                    
+                                    После оплаты, платеж находится в статусе «в обработке». Статусы платежей и данные для формирования отчетности доступны в личном кабинете
                                 </p>
                             </div>
                         </div>
@@ -274,3 +298,9 @@
         </div>
     </div>
 </section>
+
+
+@section Scripts {
+    <script src="~/scripts/Home.js" asp-append-version="true"></script>
+    <script src="~/scripts/runtime~Home.js" asp-append-version="true"></script>
+} 
