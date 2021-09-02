@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using MimeKit;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -32,9 +33,17 @@ namespace Gift_and_Salary_cards.Services.EmailServiceAccount
         /// <param name="emailTo">Адрес</param>
         /// <param name="subject">Тема сообщения</param>
         /// <param name="message">Сообщение</param>
+        /// <param name="description">Дескрипшен к почте (предисловие в письме)</param>
         /// <returns></returns>
-        public async Task SendEmailAsync(string emailTo, string subject, string message)
+        public async Task SendEmailAsync(string emailTo, string subject, string message, string description = "Сообщение от зарплатного сервиса virtcards")
         {
+
+            var mess = File.ReadAllText("wwwroot/htmlTemplates/template.html");
+            mess = mess.Replace("messageTo", message);
+            mess = mess.Replace("messageSubject", subject);
+
+            mess = mess.Replace("descriptionMessage", description);
+
             // SMTP YANDEX
             var emailMessage = new MimeMessage();
 
@@ -43,7 +52,7 @@ namespace Gift_and_Salary_cards.Services.EmailServiceAccount
             emailMessage.Subject = subject;
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
-                Text = message
+                Text = mess
             };
 
 
