@@ -51,7 +51,7 @@
             <div id="calculator" class="container calculator mt-3">
                 <div class="row">
                     <div class="col-12 col-lg-7">
-                        <h5 class="form-label text-center">Необходимо заплатить сотруднику</h5>
+                        <h5 class="form-label text-center">Необходимо начилить сотруднику</h5>
                         <div>
                             <input step="100" v-model.number="currency" type="range" class="form-range" min="1000" max="60000" name="name" value="5000" />
                             <div class="text-center calculator__payment text-muted">{{currency}} ₽</div>
@@ -61,9 +61,9 @@
 
                     </div>
                     <div class="col-12 col-lg-4 mt-lg-0 mt-3">
-                        <h5 class="form-label text-center">Вы заплатите</h5>
+                        <h5 class="form-label text-center">Вы заплатите virtcards</h5>
                         <div class="text-center calculator__payment text-muted">{{currencyProcent}} ₽</div>
-                        <div class="text-center mt-1">Комиссия 12% virtcards = <b>{{currencyProcent - currency}}</b></div>
+                        <div class="text-center mt-1">Комиссия 12% virtcards = <b>{{currencyProcent - currency}}</b> ₽</div>
                     </div>
                     <div class="col-12 d-flex justify-content-center mt-5">
                         <a class="btn btn-success" asp-controller="Card" asp-action="SalaryCard">Перейти к оплате {{currencyProcent}}</a>
