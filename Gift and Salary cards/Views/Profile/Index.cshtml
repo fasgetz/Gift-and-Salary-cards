@@ -12,4 +12,133 @@
     <h3>Профиль учетной записи</h3>
 </div>
 
+<div id="profiledata" class="col-xl-9 order-2 order-xl-1 profile__data">
+    <div>
+        <div class="row profile__title">
+            <div class="col-md-3 text-center">
+                <div class="dropdown open">
+                    <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="/Images/avatar.png" alt="">
+                        <i class="fa fa-camera"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <form onchange="LoadAva()" method="post">
+                            <div class="custom-file">
+                                <input id="uploadFile" type="file" accept="image/jpeg" class="custom-file-input">
+                                <label class="custom-file-label" for="uploadFile" data-browse="">Выберите JPEG</label>
+                            </div>
+                            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8KZba-IXPplPnxBx7_flp5RV5eySwsgrbIgzSpGqhwBE0t6w1eOLktjWU1N0FauB7DezpuJkdWrcXtv9CUoFU4oTnx30TXXoMsFZhmclonAYlRs7lENP6VQVyuE1fk4Go8uBHPbjF9kuTSu44YIIc4F6CrU7Y-7y2H7fuYymvwDI0-K04z6MngVZfzQbwyzQvg">
+                        </form>
+                        <div class="dropdown-divider"></div>
+                        <form method="post" action="/Profile/RemoveAvatar">
+                            <input class="dropdown-item" type="submit" value="Удалить">
+                            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8KZba-IXPplPnxBx7_flp5RV5eySwsgrbIgzSpGqhwBE0t6w1eOLktjWU1N0FauB7DezpuJkdWrcXtv9CUoFU4oTnx30TXXoMsFZhmclonAYlRs7lENP6VQVyuE1fk4Go8uBHPbjF9kuTSu44YIIc4F6CrU7Y-7y2H7fuYymvwDI0-K04z6MngVZfzQbwyzQvg">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 text-left profile__title__about">
+                <h3>Андрей Радюкевич</h3>
+                <h4>Здесь вы можете изменить данные Вашей учетной записи</h4>
+            </div>
+        </div>
+        <form method="post" action="/Profile/SaveProfile">
+
+            <div class="row">
+                <div class="form-group col-md">
+                    <label class="control-label" for="Name">Имя</label>
+                    <input autocomplete="off" class="form-control" value="Андрей" type="text" data-val="true" data-val-required="Пожалуйста, введите имя" id="Name" name="Name">
+                    <span class="text-danger field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
+                </div>
+                <div class="form-group col-md">
+                    <label class="control-label" for="Family">Фамилия</label>
+                    <input autocomplete="off" class="form-control" value="Радюкевич" type="text" data-val="true" data-val-required="Пожалуйста, введите фамилию" id="Family" name="Family">
+                    <span class="text-danger field-validation-valid" data-valmsg-for="Family" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md">
+                    <label class="control-label" for="OldPassword">Старый пароль</label>
+                    <input autocomplete="off" class="form-control" type="password" id="OldPassword" name="OldPassword">
+                    <span class="text-danger field-validation-valid" data-valmsg-for="OldPassword" data-valmsg-replace="true"></span>
+                </div>
+                <div class="form-group col-md">
+                    <label class="control-label" for="NewPassword">Новый пароль</label>
+                    <input autocomplete="off" class="form-control" type="password" id="NewPassword" name="NewPassword">
+                    <span class="text-danger field-validation-valid" data-valmsg-for="NewPassword" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+            <div class="row form-group col-md-6 mx-auto">
+                <div class="col-md">
+                    <label class="control-label">День</label>
+                    <select class="form-control" data-val="true" data-val-required="The DayBirth field is required." id="DayBirth" name="DayBirth">
+                        <option selected="" value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                    </select>
+                </div>
+                <div class="col-md">
+                    <label class="control-label">Месяц</label>
+                    <select class="form-control" data-val="true" data-val-required="The MonthBirth field is required." id="MonthBirth" name="MonthBirth">
+                        <option selected="" value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </div>
+                <div class="col-md">
+                    <label class="control-label">Год</label>
+                    <select class="form-control" data-val="true" data-val-required="The YearBirth field is required." id="YearBirth" name="YearBirth">
+                        @for (int i = 2006; i < 1950; i--)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <input class="btn btn-primary" type="submit" value="Сохранить">
+            </div>
+            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8KZba-IXPplPnxBx7_flp5RV5eySwsgrbIgzSpGqhwBE0t6w1eOLktjWU1N0FauB7DezpuJkdWrcXtv9CUoFU4oTnx30TXXoMsFZhmclonAYlRs7lENP6VQVyuE1fk4Go8uBHPbjF9kuTSu44YIIc4F6CrU7Y-7y2H7fuYymvwDI0-K04z6MngVZfzQbwyzQvg">
+        </form>
+    </div>
+
+</div>
+
 

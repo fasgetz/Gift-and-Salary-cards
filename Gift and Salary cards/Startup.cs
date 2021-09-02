@@ -45,6 +45,7 @@ namespace Gift_and_Salary_cards
                     opts.User.RequireUniqueEmail = true;    // уникальный email
                     opts.User.AllowedUserNameCharacters = ".@abcdefghijklmnopqrstuvwxyz"; // допустимые символы
                 })
+                .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ContextUsers>();
 
 
