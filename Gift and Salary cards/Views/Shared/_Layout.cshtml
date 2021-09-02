@@ -51,7 +51,6 @@
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a asp-controller="Profile" asp-action="Index" class="dropdown-item">Профиль</a>
-                            <a class="dropdown-item basket-menu" asp-controller="Basket" asp-action="Payment">Корзина <i class="fa fa-shopping-basket"></i></a>
                             @if (User.IsInRole("Администратор"))
                             {
                                 <a asp-controller="Roles" asp-action="Index" class="dropdown-item">Роли пользователей</a>
@@ -78,7 +77,6 @@
                         </button>
                         <div class="dropdown-menu w-100 text-center" aria-labelledby="dropdownMenuButton">
                             <a asp-controller="Profile" asp-action="Index" class="dropdown-item">Профиль</a>
-                            <a class="dropdown-item basket-menu" asp-controller="Basket" asp-action="Payment">Корзина <i class="fa fa-shopping-basket"></i></a>
                             @if (User.IsInRole("Администратор"))
                             {
                                 <a asp-controller="Roles" asp-action="Index" class="dropdown-item">Роли пользователей</a>
