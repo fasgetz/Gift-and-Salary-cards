@@ -42,12 +42,12 @@ namespace Gift_and_Salary_cards.Controllers
         {
 
             // Ищем платеж на юкассе
-            var payment = ukassaServicePayment.getPayment(model.Object.id);
+            var payment = ukassaServicePayment.getPayment(model?.Object?.id);
 
             // Если платежку отправили несуществующую, то вернуть об этом месседж
-            if (payment == null)
+            if (payment.Id == null)
             {
-                logger.LogInformation($"Платежка не найдена в бд №{payment.Id}");
+                logger.LogInformation($"Платежка не найдена в бд");
 
                 return BadRequest("Платежка, которую отправили не найдена");
             }
